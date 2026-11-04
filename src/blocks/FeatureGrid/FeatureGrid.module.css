@@ -1,0 +1,402 @@
+/* Four card-grid layouts shared by the "How to Bet" steps, the review
+   methodology criteria, the sports list, and the "Why Trust Us" block. */
+
+/* Steps */
+
+.stepsGrid {
+    display: grid;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .stepsGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .stepsGrid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.stepCard {
+    border-radius: 1.5rem;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--card));
+    padding: 1rem;
+    box-shadow: 0 10px 30px -14px #12162138;
+}
+
+@media (min-width: 640px) {
+    .stepCard {
+        padding: 1.5rem;
+    }
+}
+
+.stepNumber {
+    font-family: var(--font-bricolage), 'Bricolage Grotesque', Inter, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    font-size: 1.875rem;
+    font-weight: 800;
+    background-image: linear-gradient(135deg, #ee2f39, #b81430);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+@media (min-width: 640px) {
+    .stepNumber {
+        font-size: 3rem;
+    }
+}
+
+.stepTitle {
+    margin-top: 0.375rem;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+}
+
+@media (min-width: 640px) {
+    .stepTitle {
+        margin-top: 0.75rem;
+    }
+}
+
+.stepDescription {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: hsl(var(--muted-foreground));
+}
+
+.stepCallout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 1.5rem;
+    background-image: linear-gradient(135deg, #ee2f39, #c11532);
+    padding: 1rem;
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 8px 24px -8px hsl(var(--primary) / 0.55);
+}
+
+@media (min-width: 640px) {
+    .stepCallout {
+        padding: 1.5rem;
+    }
+}
+
+.stepCalloutLabel {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stepCalloutText {
+    font-family: var(--font-bricolage), 'Bricolage Grotesque', Inter, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.375;
+}
+
+@media (min-width: 640px) {
+    .stepCalloutText {
+        font-size: 1.25rem;
+        line-height: 1.5;
+    }
+}
+
+/* Criteria */
+
+.criteriaGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+@media (min-width: 1024px) {
+    .criteriaGrid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}
+
+.criteriaCard {
+    border-radius: 1rem;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--card));
+    padding: 1rem;
+    transition: border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 640px) {
+    .criteriaCard {
+        padding: 1.25rem;
+    }
+}
+
+.criteriaCard:hover {
+    border-color: hsl(var(--primary));
+}
+
+.criteriaNumber {
+    display: grid;
+    height: 2rem;
+    width: 2rem;
+    place-items: center;
+    border-radius: 9999px;
+    background-color: hsl(var(--accent));
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 800;
+    color: hsl(var(--accent-foreground));
+}
+
+.criteriaTitle {
+    margin-top: 0.375rem;
+    font-weight: 700;
+}
+
+@media (min-width: 640px) {
+    .criteriaTitle {
+        margin-top: 0.75rem;
+    }
+}
+
+.criteriaDescription {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: hsl(var(--muted-foreground));
+}
+
+/* Sports */
+
+.sportsGrid {
+    display: grid;
+    gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+    .sportsGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.sportsCard {
+    border-radius: 1.5rem;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--card));
+    padding: 1rem;
+    box-shadow: 0 10px 30px -14px #12162138;
+}
+
+@media (min-width: 640px) {
+    .sportsCard {
+        padding: 1.75rem;
+    }
+}
+
+.sportsHead {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sportsIcon {
+    height: 2.25rem;
+    width: 2.25rem;
+    object-fit: contain;
+}
+
+.sportsTitle {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 800;
+}
+
+.sportsDescription {
+    margin-top: 0.5rem;
+    color: hsl(var(--muted-foreground));
+}
+
+@media (min-width: 640px) {
+    .sportsDescription {
+        margin-top: 1rem;
+    }
+}
+
+.sportsTip {
+    margin-top: 0.5rem;
+    border-radius: 0.75rem;
+    background-color: hsl(var(--accent));
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: hsl(var(--accent-foreground));
+}
+
+@media (min-width: 640px) {
+    .sportsTip {
+        margin-top: 1rem;
+    }
+}
+
+/* Trust */
+
+.trustGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .trustGrid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}
+
+.trustCard {
+    border-radius: 1rem;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--card));
+    padding: 1rem;
+}
+
+@media (min-width: 640px) {
+    .trustCard {
+        padding: 1.25rem;
+    }
+}
+
+/* A lone last card spans both columns on phones. */
+@media (max-width: 767px) {
+    .trustCard:last-child:nth-child(odd) {
+        grid-column: span 2 / span 2;
+    }
+}
+
+.trustIcon {
+    height: 1.5rem;
+    width: 1.5rem;
+    color: hsl(var(--primary));
+}
+
+.trustTitle {
+    margin-top: 0.375rem;
+    font-weight: 700;
+}
+
+@media (min-width: 640px) {
+    .trustTitle {
+        margin-top: 0.75rem;
+    }
+}
+
+.trustDescription {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: hsl(var(--muted-foreground));
+}
+
+.quote {
+    margin-top: 2.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--card));
+    padding: 2rem;
+    text-align: center;
+    font-family: var(--font-bricolage), 'Bricolage Grotesque', Inter, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+}
+
+@media (min-width: 768px) {
+    .quote {
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+}
+
+.ctaBanner {
+    position: relative;
+    margin-top: 2.5rem;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    background-image: linear-gradient(135deg, #ee2f39, #c11532);
+    padding: 2rem;
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 8px 24px -8px hsl(var(--primary) / 0.55);
+}
+
+@media (min-width: 768px) {
+    .ctaBanner {
+        padding: 3rem;
+    }
+}
+
+.ctaBannerGrid {
+    display: grid;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .ctaBannerGrid {
+        grid-template-columns: 1fr auto;
+    }
+}
+
+.ctaHeading {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 800;
+}
+
+@media (max-width: 359px) {
+    .ctaHeading {
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .ctaHeading {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+    }
+}
+
+.ctaText {
+    margin-top: 0.75rem;
+    max-width: 42rem;
+    opacity: 0.9;
+}
+
+.ctaButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    background-color: hsl(var(--background));
+    padding: 0.875rem 1.75rem;
+    font-weight: 700;
+    color: hsl(var(--foreground));
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ctaButton:hover {
+    transform: translateY(-0.125rem);
+}
+
+.ctaButtonIcon {
+    height: 1rem;
+    width: 1rem;
+}

@@ -2082,16 +2082,6 @@ h1,h2,h3,.font-display {
     }
 }
 
-/* Smallest phones: step down other oversized headings still on Tailwind utilities
-   (FeatureGrid's CTA heading). Section headings and the Top-5 widget now carry their
-   own <359px rules directly in their CSS modules. */
-@media (max-width: 359px) {
-    main h2.text-3xl {
-        font-size: 1.5rem;
-        line-height: 2rem;
-    }
-}
-
 .gap-x-2 {
     -moz-column-gap: 0.5rem;
     column-gap: 0.5rem;
