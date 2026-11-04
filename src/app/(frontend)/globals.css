@@ -1941,9 +1941,6 @@ h1,h2,h3,.font-display {
 [hidden] {
     display: none !important;
 }
-.faq-answer.is-collapsed {
-    display: none;
-}
 .mobile-navigation {
     display: none;
 }
@@ -2056,11 +2053,6 @@ h1,h2,h3,.font-display {
 /* ---------------------------------------------------------------------------
    Responsive refinements (phones/tablets only; desktop is untouched).
    --------------------------------------------------------------------------- */
-/* FAQ: tighter gap between an open question and its answer. */
-.faq-toggle[aria-expanded="true"] {
-    padding-bottom: 0.5rem;
-}
-
 /* Mobile menu: dropdown links shown indented under their parent. */
 .mobile-navigation .mobile-sub {
     padding-left: 3.25rem;
