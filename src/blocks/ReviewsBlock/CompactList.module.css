@@ -1,0 +1,142 @@
+/* "Top 5 Verified Bookmakers" widget shown in the hero. */
+
+.panel {
+    min-width: 0;
+    border-radius: 1.5rem;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--card));
+    padding: 1.25rem;
+    box-shadow: 0 10px 30px -14px #12162138;
+}
+
+@media (min-width: 768px) {
+    .panel {
+        padding: 1.5rem;
+    }
+}
+
+.panelHead {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.heading {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 800;
+}
+
+.viewAll {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 700;
+    color: hsl(var(--primary));
+}
+
+.viewAll:hover {
+    text-decoration-line: underline;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: 1rem;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--background));
+    padding: 0.625rem;
+    transition: border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.row:hover {
+    border-color: hsl(var(--primary));
+}
+
+.rank {
+    width: 1.5rem;
+    text-align: center;
+    font-family: var(--font-bricolage), 'Bricolage Grotesque', Inter, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 800;
+    color: hsl(var(--primary));
+}
+
+.logo {
+    height: 2.75rem;
+    width: 2.75rem;
+    border-radius: 0.75rem;
+    background-color: hsl(var(--muted));
+    object-fit: contain;
+    padding: 0.25rem;
+}
+
+@media (max-width: 359px) {
+    /* Drop the small logo tile at the narrowest widths so names and PLAY buttons don't collide. */
+    .logo {
+        display: none;
+    }
+}
+
+.info {
+    min-width: 0;
+    flex: 1 1 0%;
+}
+
+.infoTop {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 0.5rem;
+}
+
+.name {
+    font-weight: 700;
+}
+
+@media (max-width: 359px) {
+    .name {
+        font-size: 0.875rem;
+    }
+}
+
+.rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+}
+
+.starIcon {
+    height: 1rem;
+    width: 1rem;
+    fill: hsl(var(--gold));
+    color: hsl(var(--gold));
+}
+
+.ratingOutOf {
+    font-weight: 500;
+    color: hsl(var(--muted-foreground));
+}
+
+.bonus {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: hsl(var(--muted-foreground));
+}

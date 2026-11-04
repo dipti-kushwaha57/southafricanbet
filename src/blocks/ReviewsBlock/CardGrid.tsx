@@ -53,7 +53,7 @@ export const CardGrid: React.FC<{ initialVisible?: number | null; reviews: Revie
             <article className={styles.card} hidden={hidden} key={review.id}>
               {index < 3 && <span className={styles.pickBadge}>#{index + 1} Pick</span>}
               <div className={styles.header}>
-                <BookmakerLogo className="h-16 w-16 rounded-2xl bg-muted object-contain p-1.5" review={review} />
+                <BookmakerLogo className={styles.logo} review={review} />
                 <div>
                   <h3 className={styles.title}>
                     {/* Demo: review page isn't built yet — link disabled for now, restore when it exists.
