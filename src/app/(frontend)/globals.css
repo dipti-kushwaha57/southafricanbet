@@ -1993,13 +1993,6 @@ h1,h2,h3,.font-display {
 /* ---------------------------------------------------------------------------
    Responsive refinements (phones/tablets only; desktop is untouched).
    --------------------------------------------------------------------------- */
-/* Footer: keep link lists aligned when a column title wraps onto two lines. */
-@media (max-width: 1023px) {
-    .footer-col-title {
-        min-height: 2.5rem;
-    }
-}
-
 /* Trust cards: a lone last card spans both columns on phones. */
 @media (max-width: 767px) {
     .trust-card:last-child:nth-child(odd) {

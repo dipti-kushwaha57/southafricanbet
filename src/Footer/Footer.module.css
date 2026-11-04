@@ -1,0 +1,336 @@
+/* Site footer: logo/newsletter row, responsible-gambling notice, link
+   columns, and the legal/social bottom bar. */
+
+.footer {
+    color: rgb(255 255 255 / 0.7);
+}
+
+.flagStripe {
+    height: 0.25rem;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+    .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+.topRow {
+    display: grid;
+    gap: 2.5rem;
+    padding: 3.5rem 0;
+}
+
+@media (min-width: 1024px) {
+    .topRow {
+        grid-template-columns: 1.1fr 1fr;
+        align-items: center;
+        gap: 4rem;
+    }
+}
+
+.logoImage {
+    height: 3rem;
+    width: auto;
+}
+
+.logoText {
+    font-family: var(--font-bricolage), 'Bricolage Grotesque', Inter, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.logoAccent {
+    color: hsl(var(--primary));
+}
+
+.description {
+    margin-top: 1.25rem;
+    max-width: 28rem;
+    font-size: 0.875rem;
+    line-height: 1.625;
+    color: rgb(255 255 255 / 0.6);
+}
+
+.helplineLink {
+    margin-top: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid rgb(255 255 255 / 0.15);
+    background-color: rgb(255 255 255 / 0.05);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+    transition: border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.helplineLink:hover {
+    border-color: hsl(var(--primary));
+}
+
+.helplineIcon {
+    height: 1rem;
+    width: 1rem;
+    color: hsl(var(--gold));
+}
+
+/* Responsible gambling notice */
+
+.noticeBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    border-radius: 1.5rem;
+    border: 1px solid #34d39933;
+    background-color: #34d3990f;
+    padding: 1.25rem;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .noticeBox {
+        flex-direction: row;
+        padding: 1.5rem;
+        text-align: left;
+    }
+}
+
+.noticeBadge {
+    display: grid;
+    height: 3.5rem;
+    width: 3.5rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 9999px;
+    border: 2px solid #fffc;
+    font-family: var(--font-bricolage), 'Bricolage Grotesque', Inter, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.noticeBody {
+    flex: 1 1 0%;
+}
+
+.noticeTitle {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    color: rgb(52 211 153);
+}
+
+.noticeSubtext {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: rgb(255 255 255 / 0.6);
+}
+
+.authorities {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.authorityBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid rgb(255 255 255 / 0.15);
+    background-color: rgb(255 255 255 / 0.05);
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.authorityIconPrimary {
+    height: 1rem;
+    width: 1rem;
+    color: rgb(52 211 153);
+}
+
+.authorityIconGold {
+    height: 1rem;
+    width: 1rem;
+    color: hsl(var(--gold));
+}
+
+/* Link columns */
+
+.columnsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.5rem;
+    row-gap: 2.5rem;
+    padding: 3.5rem 0;
+}
+
+@media (min-width: 1024px) {
+    .columnsGrid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.columnTitle {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #fff;
+}
+
+@media (max-width: 1023px) {
+    /* Keep link lists aligned when a column title wraps onto two lines. */
+    .columnTitle {
+        min-height: 2.5rem;
+    }
+}
+
+.columnRule {
+    margin-top: 0.75rem;
+    display: block;
+    height: 0.125rem;
+    width: 2rem;
+    border-radius: 9999px;
+    background-color: hsl(var(--primary));
+}
+
+.columnList {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.columnLink {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: rgb(255 255 255 / 0.6);
+    transition:
+        transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.columnLink:hover {
+    transform: translateX(0.125rem);
+    color: #fff;
+}
+
+/* Bottom bar */
+
+.bottomBar {
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+    padding: 1.5rem 0;
+}
+
+.legalNav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 1.5rem;
+    row-gap: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    color: rgb(255 255 255 / 0.7);
+}
+
+@media (min-width: 768px) {
+    .legalNav {
+        justify-content: flex-start;
+    }
+}
+
+.legalLink {
+    transition: color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.legalLink:hover {
+    color: #fff;
+}
+
+.bottomRow {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .bottomRow {
+        flex-direction: row;
+    }
+}
+
+.copyright {
+    text-align: center;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: rgb(255 255 255 / 0.5);
+}
+
+@media (min-width: 768px) {
+    .copyright {
+        text-align: left;
+    }
+}
+
+.socialRow {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.socialLink {
+    display: grid;
+    height: 2.25rem;
+    width: 2.25rem;
+    place-items: center;
+    border-radius: 9999px;
+    border: 1px solid rgb(255 255 255 / 0.15);
+    color: rgb(255 255 255 / 0.8);
+    transition:
+        border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.socialLink:hover {
+    border-color: hsl(var(--primary));
+    background-color: hsl(var(--primary));
+    color: #fff;
+}
+
+.socialIcon {
+    height: 1rem;
+    width: 1rem;
+    fill: currentColor;
+}

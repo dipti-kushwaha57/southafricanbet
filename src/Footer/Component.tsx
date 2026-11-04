@@ -4,7 +4,9 @@ import React from 'react'
 
 import { CmsImg } from '@/components/CmsImg'
 import { SiteLink } from '@/components/Link/SiteLink'
+import { cn } from '@/utilities/ui'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import styles from './Footer.module.css'
 import { NewsletterForm } from './NewsletterForm'
 
 const SOCIAL_PATHS: Record<string, { label: string; path: string }> = {
@@ -39,27 +41,22 @@ export async function Footer() {
   const logo = footerData?.logo && typeof footerData.logo === 'object' ? footerData.logo : null
 
   return (
-    <footer className="bg-footer text-white/70">
-      <div className="stripe-sa h-1" />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="grid gap-10 py-14 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-16">
+    <footer className={cn('bg-footer', styles.footer)}>
+      <div className={cn('stripe-sa', styles.flagStripe)} />
+      <div className={styles.container}>
+        <div className={styles.topRow}>
           <div>
             {logo ? (
-              <CmsImg alt="SouthAfricanBet.co.za" className="h-12 w-auto" resource={logo} />
+              <CmsImg alt="SouthAfricanBet.co.za" className={styles.logoImage} resource={logo} />
             ) : (
-              <span className="font-display text-2xl font-extrabold text-white">
-                SouthAfrican<span className="text-primary">Bet</span>.co.za
+              <span className={styles.logoText}>
+                SouthAfrican<span className={styles.logoAccent}>Bet</span>.co.za
               </span>
             )}
-            {footerData?.description && (
-              <p className="mt-5 max-w-md text-sm leading-relaxed text-white/60">{footerData.description}</p>
-            )}
+            {footerData?.description && <p className={styles.description}>{footerData.description}</p>}
             {helpline && (
-              <a
-                className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:border-primary"
-                href={`tel:${helpline.replace(/\s+/g, '')}`}
-              >
-                <Phone aria-hidden="true" className="h-4 w-4 text-gold" /> Toll-Free Helpline: {helpline}
+              <a className={styles.helplineLink} href={`tel:${helpline.replace(/\s+/g, '')}`}>
+                <Phone aria-hidden="true" className={styles.helplineIcon} /> Toll-Free Helpline: {helpline}
               </a>
             )}
           </div>
@@ -73,29 +70,24 @@ export async function Footer() {
           )}
         </div>
 
-        <div className="flex flex-col items-center gap-5 rounded-3xl border border-emerald-400/20 bg-emerald-400/[0.06] p-5 text-center md:flex-row md:p-6 md:text-left">
-          <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full border-2 border-white/80 font-display text-lg font-extrabold text-white">
-            18+
-          </span>
-          <div className="flex-1">
-            <p className="text-sm font-extrabold uppercase tracking-wide text-emerald-400">
+        <div className={styles.noticeBox}>
+          <span className={styles.noticeBadge}>18+</span>
+          <div className={styles.noticeBody}>
+            <p className={styles.noticeTitle}>
               {footerData?.responsibleGamblingText || 'Gambling can be addictive, please play responsibly'}
             </p>
             {footerData?.responsibleGamblingSubtext && (
-              <p className="mt-1 text-sm text-white/60">{footerData.responsibleGamblingSubtext}</p>
+              <p className={styles.noticeSubtext}>{footerData.responsibleGamblingSubtext}</p>
             )}
           </div>
           {authorities.length > 0 && (
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className={styles.authorities}>
               {authorities.map((authority, i) => (
-                <span
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-bold text-white"
-                  key={authority.id ?? i}
-                >
+                <span className={styles.authorityBadge} key={authority.id ?? i}>
                   {i === 0 ? (
-                    <ShieldCheck aria-hidden="true" className="h-4 w-4 text-emerald-400" />
+                    <ShieldCheck aria-hidden="true" className={styles.authorityIconPrimary} />
                   ) : (
-                    <BadgeCheck aria-hidden="true" className="h-4 w-4 text-gold" />
+                    <BadgeCheck aria-hidden="true" className={styles.authorityIconGold} />
                   )}
                   {authority.name}
                 </span>
@@ -104,15 +96,15 @@ export async function Footer() {
           )}
         </div>
 
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-14 lg:grid-cols-4">
+        <div className={styles.columnsGrid}>
           {columns.map((column, i) => (
             <nav aria-label={column.title} key={column.id ?? i}>
-              <h3 className="footer-col-title text-sm font-extrabold uppercase tracking-[0.14em] text-white">{column.title}</h3>
-              <span className="mt-3 block h-0.5 w-8 rounded-full bg-primary" />
-              <ul className="mt-5 space-y-3">
+              <h3 className={styles.columnTitle}>{column.title}</h3>
+              <span className={styles.columnRule} />
+              <ul className={styles.columnList}>
                 {(column.navItems || []).map(({ id, link }, j) => (
                   <li key={id ?? j}>
-                    <SiteLink className="text-sm text-white/60 transition hover:translate-x-0.5 hover:text-white" link={link} />
+                    <SiteLink className={styles.columnLink} link={link} />
                   </li>
                 ))}
               </ul>
@@ -120,35 +112,27 @@ export async function Footer() {
           ))}
         </div>
 
-        <div className="border-t border-white/10 py-6">
+        <div className={styles.bottomBar}>
           {navItems.length > 0 && (
-            <nav
-              aria-label="Legal"
-              className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-semibold text-white/70 md:justify-start"
-            >
+            <nav aria-label="Legal" className={styles.legalNav}>
               {navItems.map(({ id, link }, i) => (
-                <SiteLink className="transition hover:text-white" key={id ?? i} link={link} />
+                <SiteLink className={styles.legalLink} key={id ?? i} link={link} />
               ))}
             </nav>
           )}
-          <div className="mt-5 flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-center text-xs text-white/50 md:text-left">
+          <div className={styles.bottomRow}>
+            <p className={styles.copyright}>
               {footerData?.copyright ||
                 `© ${new Date().getFullYear()} SouthAfricanBet.co.za. All rights reserved. 18+ only. Terms and conditions apply.`}
             </p>
             {socialLinks.length > 0 && (
-              <div className="flex gap-2">
+              <div className={styles.socialRow}>
                 {socialLinks.map(({ id, platform, url }, i) => {
                   const social = SOCIAL_PATHS[platform]
                   if (!social) return null
                   return (
-                    <Link
-                      aria-label={social.label}
-                      className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-white/80 transition hover:border-primary hover:bg-primary hover:text-white"
-                      href={url}
-                      key={id ?? i}
-                    >
-                      <svg aria-hidden="true" className="h-4 w-4 fill-current" viewBox="0 0 24 24">
+                    <Link aria-label={social.label} className={styles.socialLink} href={url} key={id ?? i}>
+                      <svg aria-hidden="true" className={styles.socialIcon} viewBox="0 0 24 24">
                         <path d={social.path} />
                       </svg>
                     </Link>
