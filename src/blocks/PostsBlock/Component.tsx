@@ -81,8 +81,7 @@ const Meta: React.FC<{ featured?: boolean; post: Post }> = ({ featured, post }) 
 const ReadMore: React.FC<{ className: string; href: string }> = ({ className }) => (
   /*
   <Link className={className} href={href}>
-    Read article{' '}
-    <ArrowRight aria-hidden="true" className="h-4 w-4 transition group-hover:translate-x-1" />
+    Read article <ArrowRight aria-hidden="true" className={styles.readMoreIcon} />
   </Link>
   */
   <span className={className}>
