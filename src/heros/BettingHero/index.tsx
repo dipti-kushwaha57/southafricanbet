@@ -8,6 +8,7 @@ import type { Page } from '@/payload-types'
 import { ReviewsBlockComponent } from '@/blocks/ReviewsBlock/Component'
 import { SiteLink } from '@/components/Link/SiteLink'
 import { cn } from '@/utilities/ui'
+import styles from './BettingHero.module.css'
 
 /** Plain text of every paragraph in a Lexical state (the hero intro is a single <p>). */
 const paragraphsOf = (richText: Page['hero']['richText']): string[] => {
@@ -35,12 +36,12 @@ const OfferTicker: React.FC = async () => {
   if (!docs.length) return null
 
   return (
-    <div className="overflow-hidden border-t bg-card py-3">
-      <div className="animate-marquee flex w-max gap-10 whitespace-nowrap text-sm font-semibold text-muted-foreground">
+    <div className={styles.ticker}>
+      <div className={cn('animate-marquee', styles.tickerTrack)}>
         {[...docs, ...docs].map((review, i) => (
-          <span className="inline-flex items-center gap-2" key={i}>
-            <Sparkles aria-hidden="true" className="h-3.5 w-3.5 text-primary" /> {review.title}:{' '}
-            <span className="text-foreground">{review.bonusText}</span>
+          <span className={styles.tickerItem} key={i}>
+            <Sparkles aria-hidden="true" className={styles.tickerIcon} /> {review.title}:{' '}
+            <span className={styles.tickerOffer}>{review.bonusText}</span>
           </span>
         ))}
       </div>
@@ -83,21 +84,21 @@ export const BettingHero: React.FC<Page['hero']> = ({
     .toUpperCase()
 
   return (
-    <section className="bg-hero relative overflow-hidden border-b">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-14 sm:px-6 md:py-20 lg:grid-cols-[1.15fr_1fr]">
-        <div className="min-w-0">
+    <section className={cn('bg-hero', styles.hero)}>
+      <div className={styles.heroGrid}>
+        <div className={styles.content}>
           {badge && (
-            <span className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs font-bold">
-              <ShieldCheck aria-hidden="true" className="h-4 w-4 text-success" />
+            <span className={styles.badge}>
+              <ShieldCheck aria-hidden="true" className={styles.badgeIcon} />
               {badge}
             </span>
           )}
 
           {(line1 || line2 || highlight) && (
-            <h1 className="mt-5 text-[clamp(1.5rem,7.4vw,2.25rem)] font-extrabold leading-[1.05] md:text-[clamp(1.75rem,4vw,3.5rem)]">
-              {line1 && <span className="block whitespace-nowrap">{line1}</span>}
+            <h1 className={styles.heading}>
+              {line1 && <span className={styles.headingLine}>{line1}</span>}
               {(line2 || highlight) && (
-                <span className="block whitespace-nowrap">
+                <span className={styles.headingLine}>
                   {line2}
                   {line2 && highlight && ' '}
                   {highlight && <span className="text-gradient">{highlight}</span>}
@@ -107,28 +108,25 @@ export const BettingHero: React.FC<Page['hero']> = ({
           )}
 
           {intro.map((text, i) => (
-            <p className="mt-5 max-w-xl text-muted-foreground md:text-lg" key={i}>
+            <p className={styles.intro} key={i}>
               {text}
             </p>
           ))}
 
           {Array.isArray(links) && links.length > 0 && (
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className={styles.ctaRow}>
               {links.map(({ id, link }, i) => {
                 const Icon = link?.icon ? ICONS[link.icon as keyof typeof ICONS] : null
                 const outline = link?.appearance === 'outline'
                 return (
                   <SiteLink
-                    className={cn(
-                      'inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-bold transition sm:gap-2 sm:px-6 sm:py-3 sm:text-base',
-                      outline
-                        ? 'border bg-card hover:border-primary'
-                        : 'bg-gradient-primary text-primary-foreground shadow-glow hover:-translate-y-0.5',
-                    )}
+                    className={cn(styles.ctaButton, outline ? styles.ctaOutline : styles.ctaSolid)}
                     key={id ?? i}
                     link={link}
                   >
-                    {Icon && <Icon aria-hidden="true" className={cn('h-3.5 w-3.5 sm:h-4 sm:w-4', outline && 'text-primary')} />}
+                    {Icon && (
+                      <Icon aria-hidden="true" className={cn(styles.ctaIcon, outline && styles.ctaIconOutline)} />
+                    )}
                     {link?.label}
                   </SiteLink>
                 )
@@ -137,16 +135,14 @@ export const BettingHero: React.FC<Page['hero']> = ({
           )}
 
           {byline && (
-            <div className="mt-8 flex items-center gap-3 text-sm">
-              <div className="grid h-10 w-10 place-items-center rounded-full bg-gradient-primary font-display font-bold text-primary-foreground">
-                {initials}
-              </div>
+            <div className={styles.bylineRow}>
+              <div className={styles.avatar}>{initials}</div>
               <div>
-                <p className="font-bold">
+                <p className={styles.bylineName}>
                   {byline}
-                  {bylineRole && <span className="whitespace-nowrap font-medium text-muted-foreground"> · {bylineRole}</span>}
+                  {bylineRole && <span className={styles.bylineRole}> · {bylineRole}</span>}
                 </p>
-                {updatedText && <p className="text-muted-foreground">{updatedText}</p>}
+                {updatedText && <p className={styles.updatedText}>{updatedText}</p>}
               </div>
             </div>
           )}
@@ -165,4 +161,3 @@ export const BettingHero: React.FC<Page['hero']> = ({
     </section>
   )
 }
-
