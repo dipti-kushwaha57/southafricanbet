@@ -1,0 +1,528 @@
+{
+  "nav": [
+    {
+      "emoji": "🏠",
+      "label": "Home",
+      "href": "#",
+      "children": []
+    },
+    {
+      "emoji": "🏆",
+      "label": "Top Sites",
+      "href": "#top",
+      "children": []
+    },
+    {
+      "emoji": "⚽",
+      "label": "Sports",
+      "href": "#sports",
+      "children": [
+        {
+          "label": "Soccer",
+          "url": "#sports"
+        },
+        {
+          "label": "Rugby",
+          "url": "#sports"
+        },
+        {
+          "label": "Cricket",
+          "url": "#sports"
+        },
+        {
+          "label": "Athletics & Specials",
+          "url": "#sports"
+        }
+      ]
+    },
+    {
+      "emoji": "🎁",
+      "label": "Free Bonuses",
+      "href": "https://www.betting.za.com/free-spins-casinos/",
+      "children": [
+        {
+          "label": "Free Spins",
+          "url": "https://www.betting.za.com/free-spins-casinos/"
+        },
+        {
+          "label": "Casino Bonuses",
+          "url": "https://www.betting.za.com/casino-bonuses/"
+        },
+        {
+          "label": "Free Bets",
+          "url": "https://www.betting.za.com/free-bets/"
+        }
+      ]
+    },
+    {
+      "emoji": "⭐",
+      "label": "Reviews",
+      "href": "#reviews",
+      "children": [
+        {
+          "label": "YesPlay",
+          "url": "https://www.betting.za.com/yesplay-review/"
+        },
+        {
+          "label": "ZARbet",
+          "url": "https://www.betting.za.com/zarbet-review/"
+        },
+        {
+          "label": "LuckyFish",
+          "url": "https://www.betting.za.com/luckyfish-review/"
+        },
+        {
+          "label": "JabulaBets",
+          "url": "https://www.betting.za.com/jabulabets-review/"
+        },
+        {
+          "label": "Bettabets",
+          "url": "https://www.betting.za.com/bettabets-review/"
+        }
+      ]
+    },
+    {
+      "emoji": "🛡️",
+      "label": "Licensing",
+      "href": "#legal",
+      "children": []
+    },
+    {
+      "emoji": "❓",
+      "label": "FAQs",
+      "href": "#faq",
+      "children": []
+    }
+  ],
+  "steps": [
+    {
+      "title": "Choose a Licensed Bookie",
+      "description": "Pick a bookmaker from our ranked list that holds a valid provincial licence."
+    },
+    {
+      "title": "Create Your Account",
+      "description": "Register with your details and verify your identity (FICA)."
+    },
+    {
+      "title": "Deposit Funds",
+      "description": "Add money via EFT, card, voucher or instant payment."
+    },
+    {
+      "title": "Pick Your Sport and Market",
+      "description": "Browse rugby, soccer, cricket, racing and more."
+    },
+    {
+      "title": "Place Your Bet",
+      "description": "Select your odds, enter a stake and confirm your bet slip."
+    },
+    {
+      "title": "Track Your Bets Live",
+      "description": "Follow results in-play and cash out when it suits you."
+    },
+    {
+      "title": "Withdraw Your Winnings",
+      "description": "Request a payout straight to your bank account."
+    }
+  ],
+  "stepsCallout": "Always set a budget and never wager more than you can afford to lose. Responsible gambling keeps it fun.",
+  "stepsIntro": "New to online betting in South Africa? Don't stress — it's easier than it looks. Here's a quick step-by-step guide to get started.",
+  "criteriaIntro": "We don't just list bookmakers — we test them thoroughly. Our reviewers are South African punters who know what local players value: reliability, fair odds, fast payouts and easy platforms. Every brand goes through our 10-step evaluation.",
+  "criteria": [
+    {
+      "title": "Licensing & Trust",
+      "description": "Valid provincial licence and a clean regulatory record."
+    },
+    {
+      "title": "Security & Trust",
+      "description": "Encryption, safe payments and data protection."
+    },
+    {
+      "title": "Ease of Registration",
+      "description": "How quickly a new player can sign up and verify."
+    },
+    {
+      "title": "Payment Options",
+      "description": "EFT, cards, vouchers and mobile wallets."
+    },
+    {
+      "title": "Bonuses & Promotions",
+      "description": "Fair welcome offers with clear wagering terms."
+    },
+    {
+      "title": "Markets & Specials",
+      "description": "Depth of rugby, soccer, cricket and racing markets."
+    },
+    {
+      "title": "Mobile Experience",
+      "description": "App and mobile-site speed and usability."
+    },
+    {
+      "title": "Customer Support",
+      "description": "Response time and quality of live chat and email."
+    },
+    {
+      "title": "Withdrawal Speed",
+      "description": "How fast real withdrawals actually land."
+    },
+    {
+      "title": "Responsible Gambling",
+      "description": "Limits, self-exclusion and player-protection tools."
+    }
+  ],
+  "reviewsIntro": "Only a few brands consistently deliver safe, exciting and reliable betting. These are our top five for 2026, trusted by thousands of South African punters.",
+  "topIntro": "Our team tested and compared dozens of licensed bookmakers to find the ones that stand out for value, security, bonuses and easy payouts. Each is fully licensed, locally trusted and designed to make betting simple, fun and rewarding.",
+  "legalIntro": "All online bookmakers must hold a valid licence from an official provincial gambling board. A recognised regulator means the bookmaker is trustworthy, accountable and compliant with the National Gambling Act.",
+  "authorities": [
+    "Western Cape Gambling and Racing Board (WCGRB)",
+    "Gauteng Gambling Board (GGB)",
+    "KwaZulu-Natal Gaming and Betting Board (KZNGBB)",
+    "Eastern Cape Gambling and Betting Board (ECGBB)",
+    "Free State Gambling, Liquor and Tourism Authority",
+    "Northern Cape Gambling Board (NCGB)"
+  ],
+  "legalProTip": "Scroll to the bottom of a betting site's homepage to check its licence number. If it isn't shown, avoid it.",
+  "benefits": [
+    "Your deposits and winnings are protected under South African law.",
+    "Confirms the bookmaker is audited and runs fair, tested games.",
+    "Guarantees access to responsible gambling tools and dispute resolution.",
+    "A licence is a sign of a genuine, accountable operator."
+  ],
+  "benefitsNote": "At SouthAfricanBet.co.za, we only recommend licensed and regulated sportsbooks — never unverified or offshore sites.",
+  "sportsIntro": "Cricket season, a big rugby clash or a heated PSL derby — here's which of our favourite sites handle each sport best.",
+  "sports": [
+    {
+      "emoji": "🏏",
+      "title": "Cricket Betting",
+      "description": "From the SA20 and Proteas internationals to the IPL, cricket offers deep markets on match winners, top batters and bowlers.",
+      "tip": "Compare odds on top batter markets across a few sites before you stake."
+    },
+    {
+      "emoji": "🏉",
+      "title": "Rugby Betting",
+      "description": "Springboks Tests, URC and Currie Cup fixtures are covered by every major licensed bookmaker with handicap and try-scorer markets.",
+      "tip": "Look out for boosted odds ahead of Springbok Test matches."
+    },
+    {
+      "emoji": "⚽",
+      "title": "Soccer Betting",
+      "description": "PSL derbies, Champions League and the Premier League attract the widest range of markets, including player props and live betting.",
+      "tip": "In-play betting can offer value once team news and form are clear."
+    },
+    {
+      "emoji": "🏃",
+      "title": "Athletics & Specials Betting",
+      "description": "Horse racing, athletics, boxing and novelty specials round out the choice for punters who like something different.",
+      "tip": "Start with small stakes on unfamiliar markets while you learn."
+    }
+  ],
+  "trustIntro": "Our local experts open accounts, deposit real money, claim bonuses, place bets and withdraw winnings. Our reviews are real, practical and written from experience — not marketing hype.",
+  "trust": [
+    {
+      "title": "Local Expertise",
+      "description": "Our reviewers are South African punters."
+    },
+    {
+      "title": "Real-money Testing",
+      "description": "We deposit, bet and withdraw ourselves."
+    },
+    {
+      "title": "Up-to-date Bonuses",
+      "description": "Offers are checked and refreshed regularly."
+    },
+    {
+      "title": "Honest Ratings",
+      "description": "Scores are never for sale."
+    },
+    {
+      "title": "Responsible Gambling",
+      "description": "We promote safe, licensed play only."
+    }
+  ],
+  "quote": "We do the hard work so you don't have to — testing, comparing, and ranking South Africa's best online betting sites, so you can focus on enjoying the game.",
+  "ctaHeading": "Claim Your Exclusive Welcome Bonus Today!",
+  "ctaText": "Sign up at our partner casinos and get up to R3,000 + Free Spins on your first deposit. No complicated terms. Just pure gameplay and rewards.",
+  "ctaUrl": "https://www.betting.za.com/online-casino-reviews/",
+  "faqIntro": "Quick answers to what South African punters ask us most about licensed online betting.",
+  "faq": [
+    {
+      "question": "Is online betting legal in South Africa?",
+      "answer": "Yes. Online sports betting is legal with bookmakers licensed by a provincial gambling board under the National Gambling Act."
+    },
+    {
+      "question": "What is the minimum deposit for online betting?",
+      "answer": "Most licensed sites let you start with as little as R5 to R50, depending on the bookmaker and payment method."
+    },
+    {
+      "question": "Do South African betting sites pay out quickly?",
+      "answer": "Many pay out within 1 to 24 hours once your account is verified; EFT can take a little longer."
+    },
+    {
+      "question": "Which are the best betting sites in South Africa right now?",
+      "answer": "See our ranked list above: each brand is licensed, tested with real money and reviewed by our team."
+    },
+    {
+      "question": "How do I know a betting site is licensed?",
+      "answer": "Check the footer of the homepage for the licence number and the name of the provincial board."
+    },
+    {
+      "question": "Can I bet using my phone or tablet?",
+      "answer": "Yes, all our top picks offer a mobile site and most have a dedicated app."
+    },
+    {
+      "question": "How do I withdraw my winnings?",
+      "answer": "Go to the cashier, choose Withdraw, pick your bank or e-wallet and confirm. FICA verification may be required first."
+    },
+    {
+      "question": "Is online betting safe in South Africa?",
+      "answer": "It is safe with licensed operators that use encryption and offer responsible gambling tools."
+    },
+    {
+      "question": "What is the minimum age to bet?",
+      "answer": "You must be 18 or older to bet online in South Africa."
+    }
+  ],
+  "quickLinks": [
+    {
+      "label": "Free Spins Casinos",
+      "url": "https://www.betting.za.com/free-spins-casinos/"
+    },
+    {
+      "label": "Online Casino Reviews",
+      "url": "https://www.betting.za.com/online-casino-reviews/"
+    },
+    {
+      "label": "Best Casino Bonuses",
+      "url": "https://www.betting.za.com/casino-bonuses/"
+    },
+    {
+      "label": "Mobile Betting Apps",
+      "url": "https://www.betting.za.com/betting-apps/"
+    },
+    {
+      "label": "Payment Methods",
+      "url": "https://www.betting.za.com/payment-methods/"
+    },
+    {
+      "label": "Free Bets",
+      "url": "https://www.betting.za.com/free-bets/"
+    }
+  ],
+  "blogIntro": "Match previews, odds, bookmaker promotions and the latest South African gambling news, written by our local team.",
+  "blog": [
+    {
+      "title": "Kaizer Chiefs vs Stellenbosch Prediction, Odds and Betting Tips – 17 October 2026",
+      "category": "Soccer",
+      "date": "17 Oct 2026",
+      "description": "A preview of the Kaizer Chiefs vs Stellenbosch FC match at FNB Stadium, with odds and our suggested tips.",
+      "href": "https://www.betting.za.com/soccer-news/kaizer-chiefs-vs-stellenbosch-prediction-odds-and-betting-tips-17-october-2026/"
+    },
+    {
+      "title": "SA's 20% Online Gambling Tax: Still Alive, But No Decision Until February 2027",
+      "category": "Latest News",
+      "date": "Oct 2026",
+      "description": "The proposed 20% online gambling tax has no decision yet, with a ruling not expected until 2027.",
+      "href": "https://www.betting.za.com/news/sas-20-online-gambling-tax-still-alive-but-no-decision-until-february-2027/"
+    },
+    {
+      "title": "Fill Your Stein With R18,500 in ZARBucks at ZARbet This October",
+      "category": "Promotions",
+      "date": "Oct 2026",
+      "description": "A ZARbet promotion awards ZARBucks across three reward levels, plus a R10,000 bonus draw.",
+      "href": "https://www.betting.za.com/news/fill-your-stein-with-r18500-in-zarbucks-at-zarbet-this-october/"
+    },
+    {
+      "title": "Bettabets AGT Lucky Spins Promotion Offers Up to 112 Spins in October 2026",
+      "category": "Promotions",
+      "date": "Oct 2026",
+      "description": "Players can collect up to 112 Lucky Spins by placing qualifying casino bets.",
+      "href": "https://www.betting.za.com/news/bettabets-agt-lucky-spins-promotion-offers-up-to-112-spins-in-october-2026/"
+    },
+    {
+      "title": "Hollywoodbets Extends Brentford Tie-Up for Five More Years",
+      "category": "Soccer",
+      "date": "Aug 2026",
+      "description": "Hollywoodbets has renewed its sponsorship of Brentford FC for a further five years.",
+      "href": "https://www.betting.za.com/soccer-news/hollywoodbets-extends-brentford-tie-up-for-five-more-years/"
+    }
+  ],
+  "footerDescription": "Honest, tested and up-to-date guides to licensed South African betting sites. We only recommend bookmakers regulated by a provincial gambling board.",
+  "newsletter": {
+    "eyebrow": "Newsletter",
+    "heading": "Get the latest free bonus offers",
+    "text": "One email a week. No spam, unsubscribe anytime."
+  },
+  "rg": {
+    "title": "Gambling can be addictive, please play responsibly",
+    "text": "Only bet what you can afford to lose. If gambling is a problem, free confidential help is available 24/7.",
+    "pills": [
+      "National Gambling Board",
+      "Licensed Operators Only"
+    ]
+  },
+  "footerColumns": [
+    {
+      "title": "Popular Pages",
+      "links": [
+        {
+          "label": "Online Casino Reviews",
+          "url": "https://www.betting.za.com/online-casino-reviews/"
+        },
+        {
+          "label": "Real Money Casinos",
+          "url": "https://www.betting.za.com/real-money-casinos/"
+        },
+        {
+          "label": "Real Money Slots",
+          "url": "https://www.betting.za.com/real-money-slots/"
+        },
+        {
+          "label": "South African Casinos",
+          "url": "https://www.betting.za.com/south-african-casinos/"
+        },
+        {
+          "label": "News",
+          "url": "https://www.betting.za.com/news/"
+        },
+        {
+          "label": "Soccer News",
+          "url": "https://www.betting.za.com/soccer-news/"
+        }
+      ]
+    },
+    {
+      "title": "Bookmaker Reviews",
+      "links": [
+        {
+          "label": "10bet",
+          "url": "https://www.betting.za.com/10bet/"
+        },
+        {
+          "label": "Hollywoodbets",
+          "url": "https://www.betting.za.com/hollywoodbets/"
+        },
+        {
+          "label": "ZARbet",
+          "url": "https://www.betting.za.com/zarbet/"
+        },
+        {
+          "label": "LuckyFish",
+          "url": "https://www.betting.za.com/luckyfish/"
+        },
+        {
+          "label": "YesPlay",
+          "url": "https://www.betting.za.com/yesplay/"
+        },
+        {
+          "label": "PantherBet",
+          "url": "https://www.betting.za.com/pantherbet/"
+        },
+        {
+          "label": "JabulaBets",
+          "url": "https://www.betting.za.com/jabulabets/"
+        }
+      ]
+    },
+    {
+      "title": "Sports",
+      "links": [
+        {
+          "label": "Soccer",
+          "url": "https://www.betting.za.com/soccer/"
+        },
+        {
+          "label": "Rugby",
+          "url": "https://www.betting.za.com/rugby/"
+        },
+        {
+          "label": "Cricket",
+          "url": "https://www.betting.za.com/cricket/"
+        },
+        {
+          "label": "Tennis",
+          "url": "https://www.betting.za.com/tennis/"
+        },
+        {
+          "label": "Boxing",
+          "url": "https://www.betting.za.com/boxing/"
+        },
+        {
+          "label": "Horse Racing",
+          "url": "https://www.betting.za.com/horse-racing/"
+        },
+        {
+          "label": "World Cup 2026",
+          "url": "https://www.betting.za.com/world-cup-2026/"
+        }
+      ]
+    },
+    {
+      "title": "Gambling Regulation",
+      "links": [
+        {
+          "label": "National Gambling Board",
+          "url": "https://www.betting.za.com/national-gambling-board/"
+        },
+        {
+          "label": "Provincial Regulators",
+          "url": "https://www.betting.za.com/provincial-regulators/"
+        },
+        {
+          "label": "Responsible Gambling",
+          "url": "https://www.betting.za.com/responsible-gambling/"
+        },
+        {
+          "label": "FICA Verification",
+          "url": "https://www.betting.za.com/fica-verification/"
+        },
+        {
+          "label": "Self-Exclusion for SA Sports Bettors",
+          "url": "https://www.betting.za.com/self-exclusion-for-sa-sports-bettors/"
+        },
+        {
+          "label": "Underage Gambling Prevention",
+          "url": "https://www.betting.za.com/underage-gambling-prevention/"
+        },
+        {
+          "label": "Affiliate Disclosure",
+          "url": "https://www.betting.za.com/affiliate-disclosure/"
+        }
+      ]
+    }
+  ],
+  "legal": [
+    {
+      "label": "Contact Us",
+      "url": "https://www.betting.za.com/contact-us/"
+    },
+    {
+      "label": "About Us",
+      "url": "https://www.betting.za.com/about-us/"
+    },
+    {
+      "label": "Disclaimer",
+      "url": "https://www.betting.za.com/disclaimer/"
+    },
+    {
+      "label": "Terms & Conditions",
+      "url": "https://www.betting.za.com/terms-conditions/"
+    },
+    {
+      "label": "Privacy Policy",
+      "url": "https://www.betting.za.com/privacy-policy/"
+    },
+    {
+      "label": "Cookies Policy",
+      "url": "https://www.betting.za.com/cookies-policy/"
+    },
+    {
+      "label": "Author Page",
+      "url": "https://www.betting.za.com/author-page/"
+    },
+    {
+      "label": "Sitemap",
+      "url": "https://www.betting.za.com/sitemap/"
+    }
+  ],
+  "copyright": "© 2026 SouthAfricanBet.co.za. All rights reserved. 18+ only. Terms and conditions apply.",
+  "heroIntro": "Back your favourite rugby team, predict a soccer upset or try your luck on a local horse race. Betting online is fast, secure and fully legal with bookmakers licensed by local provincial gambling boards — from ZARbet to Hollywoodbets and 10bet."
+}
