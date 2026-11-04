@@ -4,7 +4,7 @@ import React from 'react'
 import type { FaqBlock as FaqBlockProps } from '@/payload-types'
 
 import { SiteLink } from '@/components/Link/SiteLink'
-import { SectionEyebrow, SectionHeading, SectionIntro, SectionWrap } from '@/components/Section'
+import { SectionEyebrow, SectionHeading, SectionIntro, SectionWrap, sectionStyles } from '@/components/Section'
 import { FaqAccordion } from './Accordion'
 
 export const FaqBlockComponent: React.FC<FaqBlockProps & { id?: string }> = (props) => {
@@ -16,12 +16,8 @@ export const FaqBlockComponent: React.FC<FaqBlockProps & { id?: string }> = (pro
       <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.4fr] lg:gap-14">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionEyebrow>{eyebrow}</SectionEyebrow>
-          <SectionHeading
-            className="text-3xl font-extrabold md:text-5xl"
-            heading={heading}
-            highlight={headingHighlight}
-          />
-          <SectionIntro className="mt-4 text-muted-foreground md:text-lg">{intro}</SectionIntro>
+          <SectionHeading className={sectionStyles.headingBase} heading={heading} highlight={headingHighlight} />
+          <SectionIntro className={sectionStyles.introBase}>{intro}</SectionIntro>
           {quickLinks && quickLinks.length > 0 && (
             <div className="mt-8 rounded-3xl border bg-card p-6 shadow-card">
               <h3 className="flex items-center gap-2 font-extrabold">

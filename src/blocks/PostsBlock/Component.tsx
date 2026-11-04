@@ -9,7 +9,8 @@ import { ArrowRight, ArrowUpRight, CalendarDays } from 'lucide-react'
 
 import { CmsImg } from '@/components/CmsImg'
 import { SiteLink } from '@/components/Link/SiteLink'
-import { SectionEyebrow, SectionHeading, SectionIntro, SectionWrap } from '@/components/Section'
+import { SectionEyebrow, SectionHeading, SectionIntro, SectionWrap, sectionStyles } from '@/components/Section'
+import { cn } from '@/utilities/ui'
 
 async function getPosts(props: PostsBlockProps): Promise<Post[]> {
   const { mode, limit: limitFromProps, categories, selectedPosts } = props
@@ -174,16 +175,14 @@ export const PostsBlockComponent: React.FC<PostsBlockProps & { id?: string }> = 
 
   return (
     <SectionWrap anchorId={anchorId} tinted={tinted}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className={sectionStyles.container}>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <SectionEyebrow>{eyebrow}</SectionEyebrow>
-            <SectionHeading
-              className="text-3xl font-extrabold md:text-5xl"
-              heading={heading}
-              highlight={headingHighlight}
-            />
-            <SectionIntro className="mt-4 max-w-2xl text-muted-foreground md:text-lg">{intro}</SectionIntro>
+            <SectionHeading className={sectionStyles.headingBase} heading={heading} highlight={headingHighlight} />
+            <SectionIntro className={cn(sectionStyles.introBase, sectionStyles.introConstrainedWide)}>
+              {intro}
+            </SectionIntro>
           </div>
           <SiteLink
             className="inline-flex items-center gap-2 rounded-full border bg-card px-5 py-2.5 text-sm font-bold transition hover:border-primary hover:text-primary"
