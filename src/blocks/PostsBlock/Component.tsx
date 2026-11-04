@@ -11,6 +11,7 @@ import { CmsImg } from '@/components/CmsImg'
 import { SiteLink } from '@/components/Link/SiteLink'
 import { SectionEyebrow, SectionHeading, SectionIntro, SectionWrap, sectionStyles } from '@/components/Section'
 import { cn } from '@/utilities/ui'
+import styles from './PostsBlock.module.css'
 
 async function getPosts(props: PostsBlockProps): Promise<Post[]> {
   const { mode, limit: limitFromProps, categories, selectedPosts } = props
@@ -65,15 +66,11 @@ const Meta: React.FC<{ featured?: boolean; post: Post }> = ({ featured, post }) 
     post.categories?.[0] && typeof post.categories[0] === 'object' ? post.categories[0] : null
 
   return (
-    <div className="flex items-center gap-3">
-      {category && (
-        <span className="inline-flex items-center rounded-full bg-accent px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-accent-foreground">
-          {category.title}
-        </span>
-      )}
+    <div className={styles.meta}>
+      {category && <span className={styles.metaCategory}>{category.title}</span>}
       {post.publishedAt && (
-        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
-          <CalendarDays aria-hidden="true" className="h-3.5 w-3.5" /> {formatDate(post.publishedAt, !!featured)}
+        <span className={styles.metaDate}>
+          <CalendarDays aria-hidden="true" className={styles.metaDateIcon} /> {formatDate(post.publishedAt, !!featured)}
         </span>
       )}
     </div>
@@ -89,7 +86,7 @@ const ReadMore: React.FC<{ className: string; href: string }> = ({ className }) 
   </Link>
   */
   <span className={className}>
-    Read article <ArrowRight aria-hidden="true" className="h-4 w-4" />
+    Read article <ArrowRight aria-hidden="true" className={styles.readMoreIcon} />
   </span>
 )
 
@@ -97,24 +94,18 @@ const FeaturedPost: React.FC<{ post: Post }> = ({ post }) => {
   const href = `/posts/${post.slug}`
 
   return (
-    <article className="group overflow-hidden rounded-3xl border bg-card shadow-card transition hover:-translate-y-1 hover:border-primary lg:grid lg:grid-cols-[1.45fr_1fr]">
+    <article className={styles.featuredCard}>
       {/* Demo: link disabled for now, restore when post pages are part of the demo.
-      <Link className="relative block aspect-[16/9] overflow-hidden lg:aspect-auto lg:h-full" href={href}>
+      <Link className={styles.featuredImageWrap} href={href}>
       */}
-      <div className="relative block aspect-[16/9] overflow-hidden lg:aspect-auto lg:h-full">
-        <CmsImg
-          alt={post.title}
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-          resource={post.heroImage}
-        />
-        <span className="absolute left-4 top-4 rounded-full bg-gradient-primary px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-primary-foreground shadow-glow">
-          Featured
-        </span>
+      <div className={styles.featuredImageWrap}>
+        <CmsImg alt={post.title} className={styles.featuredImage} resource={post.heroImage} />
+        <span className={styles.featuredBadge}>Featured</span>
       </div>
       {/* </Link> */}
-      <div className="flex flex-col p-6 md:p-8">
+      <div className={styles.featuredBody}>
         <Meta featured post={post} />
-        <h3 className="mt-4 text-2xl font-extrabold leading-tight md:text-3xl">
+        <h3 className={styles.featuredTitle}>
           {/* Demo: link disabled for now, restore when post pages are part of the demo.
           <Link className="transition hover:text-primary" href={href}>
             {post.title}
@@ -122,8 +113,8 @@ const FeaturedPost: React.FC<{ post: Post }> = ({ post }) => {
           */}
           {post.title}
         </h3>
-        {post.meta?.description && <p className="mt-3 text-muted-foreground">{post.meta.description}</p>}
-        <ReadMore className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-bold text-primary" href={href} />
+        {post.meta?.description && <p className={styles.featuredDescription}>{post.meta.description}</p>}
+        <ReadMore className={cn(styles.readMore, styles.featuredReadMore)} href={href} />
       </div>
     </article>
   )
@@ -133,21 +124,17 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
   const href = `/posts/${post.slug}`
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-3xl border bg-card shadow-card transition hover:-translate-y-1 hover:border-primary">
+    <article className={styles.card}>
       {/* Demo: link disabled for now, restore when post pages are part of the demo.
-      <Link className="block aspect-[16/9] overflow-hidden" href={href}>
+      <Link className={styles.cardImageWrap} href={href}>
       */}
-      <div className="block aspect-[16/9] overflow-hidden">
-        <CmsImg
-          alt={post.title}
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-          resource={post.heroImage}
-        />
+      <div className={styles.cardImageWrap}>
+        <CmsImg alt={post.title} className={styles.cardImage} resource={post.heroImage} />
       </div>
       {/* </Link> */}
-      <div className="flex flex-1 flex-col p-5 md:p-6">
+      <div className={styles.cardBody}>
         <Meta post={post} />
-        <h3 className="mt-3 text-lg font-extrabold leading-snug">
+        <h3 className={styles.cardTitle}>
           {/* Demo: link disabled for now, restore when post pages are part of the demo.
           <Link className="transition hover:text-primary" href={href}>
             {post.title}
@@ -155,10 +142,8 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
           */}
           {post.title}
         </h3>
-        {post.meta?.description && (
-          <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{post.meta.description}</p>
-        )}
-        <ReadMore className="mt-auto inline-flex items-center gap-2 pt-4 text-sm font-bold text-primary" href={href} />
+        {post.meta?.description && <p className={styles.cardDescription}>{post.meta.description}</p>}
+        <ReadMore className={cn(styles.readMore, styles.cardReadMore)} href={href} />
       </div>
     </article>
   )
@@ -176,7 +161,7 @@ export const PostsBlockComponent: React.FC<PostsBlockProps & { id?: string }> = 
   return (
     <SectionWrap anchorId={anchorId} tinted={tinted}>
       <div className={sectionStyles.container}>
-        <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className={styles.headerRow}>
           <div>
             <SectionEyebrow>{eyebrow}</SectionEyebrow>
             <SectionHeading className={sectionStyles.headingBase} heading={heading} highlight={headingHighlight} />
@@ -184,18 +169,15 @@ export const PostsBlockComponent: React.FC<PostsBlockProps & { id?: string }> = 
               {intro}
             </SectionIntro>
           </div>
-          <SiteLink
-            className="inline-flex items-center gap-2 rounded-full border bg-card px-5 py-2.5 text-sm font-bold transition hover:border-primary hover:text-primary"
-            link={viewAllLink}
-          >
-            {viewAllLink?.label} <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+          <SiteLink className={styles.viewAllButton} link={viewAllLink}>
+            {viewAllLink?.label} <ArrowUpRight aria-hidden="true" className={styles.viewAllIcon} />
           </SiteLink>
         </div>
 
-        <div className="mt-10 space-y-6">
+        <div className={styles.postsArea}>
           <FeaturedPost post={featuredPost} />
           {restPosts.length > 0 && (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className={styles.cardsGrid}>
               {restPosts.map((post) => (
                 <PostCard key={post.id} post={post} />
               ))}
