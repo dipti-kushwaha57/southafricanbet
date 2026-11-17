@@ -5,10 +5,12 @@ import { getLinkHref, type LinkFields } from '@/utilities/linkHref'
 
 /** Unstyled CMS link: resolves the href and renders next/link with the given classes. */
 export const SiteLink: React.FC<{
+  'aria-hidden'?: boolean
   children?: React.ReactNode
   className?: string
   link?: LinkFields | null
-}> = ({ children, className, link }) => {
+  tabIndex?: number
+}> = ({ children, className, link, tabIndex, ...rest }) => {
   const href = getLinkHref(link)
   if (!href) return null
 
@@ -16,7 +18,14 @@ export const SiteLink: React.FC<{
   const extra = link?.newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
   return (
-    <Link className={className} href={href} {...(external && !link?.newTab ? { rel: 'noopener' } : {})} {...extra}>
+    <Link
+      className={className}
+      href={href}
+      tabIndex={tabIndex}
+      {...(external && !link?.newTab ? { rel: 'noopener' } : {})}
+      {...extra}
+      {...rest}
+    >
       {children ?? link?.label}
     </Link>
   )

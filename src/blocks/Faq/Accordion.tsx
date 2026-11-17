@@ -3,7 +3,6 @@ import { Minus, Plus } from 'lucide-react'
 import React, { useState } from 'react'
 
 import { cn } from '@/utilities/ui'
-import styles from './Accordion.module.css'
 
 export const FaqAccordion: React.FC<{ items: { answer: string; question: string }[] }> = ({ items }) => {
   // Only one answer is open at a time; clicking the open one closes it.
@@ -12,34 +11,36 @@ export const FaqAccordion: React.FC<{ items: { answer: string; question: string 
   const toggle = (index: number) => setOpen((current) => (current === index ? null : index))
 
   return (
-    <div className={styles.list}>
+    <div className="faq-accordion-list">
       {items.map((item, i) => {
         const isOpen = open === i
         return (
-          <div className={cn(styles.item, isOpen && styles.itemOpen)} key={i}>
+          <div className={cn('faq-accordion-item', isOpen && 'faq-accordion-item-open')} key={i}>
             <button
               aria-controls={`faq-answer-${i}`}
               aria-expanded={isOpen}
-              className={styles.toggle}
+              className="faq-accordion-toggle"
               onClick={() => toggle(i)}
               type="button"
             >
-              <span className={cn(styles.number, isOpen && styles.numberOpen)}>{String(i + 1).padStart(2, '0')}</span>
-              <span className={styles.question}>{item.question}</span>
-              <span className={cn(styles.marker, isOpen && styles.markerOpen)}>
+              <span className={cn('faq-accordion-number', isOpen && 'faq-accordion-number-open')}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span className="faq-accordion-question">{item.question}</span>
+              <span className={cn('faq-accordion-marker', isOpen && 'faq-accordion-marker-open')}>
                 {isOpen ? (
-                  <Minus aria-hidden="true" className={styles.markerIcon} />
+                  <Minus aria-hidden="true" className="faq-accordion-marker-icon" />
                 ) : (
-                  <Plus aria-hidden="true" className={styles.markerIcon} />
+                  <Plus aria-hidden="true" className="faq-accordion-marker-icon" />
                 )}
               </span>
             </button>
             <div
-              className={cn(styles.answerRow, !isOpen && styles.answerRowCollapsed)}
+              className={cn('faq-accordion-answer-row', !isOpen && 'faq-accordion-answer-row-collapsed')}
               id={`faq-answer-${i}`}
             >
-              <div className={styles.answerClip}>
-                <p className={styles.answer}>{item.answer}</p>
+              <div className="faq-accordion-answer-clip">
+                <p className="faq-accordion-answer">{item.answer}</p>
               </div>
             </div>
           </div>

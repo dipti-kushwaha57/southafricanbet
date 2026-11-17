@@ -1,34 +1,50 @@
 'use client'
-import { BadgeCheck, ChevronDown, Copy, Star } from 'lucide-react'
+import { BadgeCheck, Check, ChevronDown, Copy, Star } from 'lucide-react'
 // import Link from 'next/link' // demo: re-enable once /reviews/[slug] exists
 import React, { useState } from 'react'
 
 import type { Review } from '@/payload-types'
 
 import { BookmakerLogo } from '@/components/BookmakerLogo'
-import buttons from '@/components/buttons.module.css'
 import { cn } from '@/utilities/ui'
 // import { reviewHref } from '@/utilities/reviewHref' // demo: re-enable once /reviews/[slug] exists
-import styles from './CardGrid.module.css'
 
 const PromoCode: React.FC<{ code: string }> = ({ code }) => {
   const [copied, setCopied] = useState(false)
 
   return (
     <button
-      className={styles.promoButton}
+      aria-live="polite"
+      className={cn('card-grid-promo-button', copied && 'card-grid-promo-button-copied')}
       onClick={async () => {
         try {
           await navigator.clipboard.writeText(code)
-          setCopied(true)
-          window.setTimeout(() => setCopied(false), 1400)
         } catch {
-          window.prompt('Copy this promo code:', code)
+          const textarea = document.createElement('textarea')
+          textarea.value = code
+          textarea.style.position = 'fixed'
+          textarea.style.opacity = '0'
+          document.body.appendChild(textarea)
+          textarea.select()
+          document.execCommand('copy')
+          document.body.removeChild(textarea)
         }
+        setCopied(true)
+        window.setTimeout(() => setCopied(false), 1400)
       }}
       type="button"
     >
-      {copied ? 'Copied!' : `Code: ${code}`} <Copy aria-hidden="true" className={styles.promoCopyIcon} />
+      {`Code: ${code}`}{' '}
+      <span className="card-grid-promo-icon-flip">
+        <Copy
+          aria-hidden="true"
+          className={cn('card-grid-promo-copy-icon', 'card-grid-promo-icon-front', copied && 'card-grid-promo-icon-hidden-front')}
+        />
+        <Check
+          aria-hidden="true"
+          className={cn('card-grid-promo-copy-icon', 'card-grid-promo-icon-back', copied && 'card-grid-promo-icon-visible-back')}
+        />
+      </span>
     </button>
   )
 }
@@ -45,17 +61,17 @@ export const CardGrid: React.FC<{ initialVisible?: number | null; reviews: Revie
 
   return (
     <div>
-      <div className={styles.cardsGrid} id="bookmaker-grid">
+      <div className="card-grid-list" id="bookmaker-grid">
         {reviews.map((review, index) => {
           const hidden = !showAll && index >= limit
 
           return (
-            <article className={styles.card} hidden={hidden} key={review.id}>
-              {index < 3 && <span className={styles.pickBadge}>#{index + 1} Pick</span>}
-              <div className={styles.header}>
-                <BookmakerLogo className={styles.logo} review={review} />
+            <article className="card-grid-card" hidden={hidden} key={review.id}>
+              {index < 3 && <span className="card-grid-pick-badge">#{index + 1} Pick</span>}
+              <div className="card-grid-header">
+                <BookmakerLogo className="card-grid-logo" review={review} />
                 <div>
-                  <h3 className={styles.title}>
+                  <h3 className="card-grid-title">
                     {/* Demo: review page isn't built yet — link disabled for now, restore when it exists.
                     <Link className="hover:text-primary" href={reviewHref(review.slug)}>
                       {review.title}
@@ -63,20 +79,20 @@ export const CardGrid: React.FC<{ initialVisible?: number | null; reviews: Revie
                     */}
                     {review.title}
                   </h3>
-                  <span className={styles.ratingRow}>
-                    <Star aria-hidden="true" className={styles.starIcon} />
+                  <span className="card-grid-rating-row">
+                    <Star aria-hidden="true" className="card-grid-star-icon" />
                     {review.rating.toFixed(1)}
-                    <span className={styles.ratingOutOf}>/5</span>
+                    <span className="card-grid-rating-out-of">/5</span>
                   </span>
                 </div>
               </div>
 
               {review.bonusText && (
-                <div className={styles.bonusBox}>
-                  <p className={styles.bonusLabel}>Welcome offer</p>
-                  <p className={styles.bonusText}>{review.bonusText}</p>
+                <div className="card-grid-bonus-box">
+                  <p className="card-grid-bonus-label">Welcome offer</p>
+                  <p className="card-grid-bonus-text">{review.bonusText}</p>
                   {review.promotionalCode && (
-                    <div className={styles.promoWrap}>
+                    <div className="card-grid-promo-wrap">
                       <PromoCode code={review.promotionalCode} />
                     </div>
                   )}
@@ -84,59 +100,59 @@ export const CardGrid: React.FC<{ initialVisible?: number | null; reviews: Revie
               )}
 
               {review.features && review.features.length > 0 && (
-                <ul className={styles.featuresList}>
+                <ul className="card-grid-features-list">
                   {review.features.map((feature, i) => (
-                    <li className={styles.featureItem} key={feature.id ?? i}>
-                      <BadgeCheck aria-hidden="true" className={styles.featureIcon} />
+                    <li className="card-grid-feature-item" key={feature.id ?? i}>
+                      <BadgeCheck aria-hidden="true" className="card-grid-feature-icon" />
                       {feature.text}
                     </li>
                   ))}
                 </ul>
               )}
 
-              <dl className={styles.statsGrid}>
-                <div className={styles.statBox}>
-                  <dt className={styles.statLabel}>Min Deposit</dt>
-                  <dd className={styles.statValue}>{review.minDeposit || '—'}</dd>
+              <dl className="card-grid-stats-grid">
+                <div className="card-grid-stat-box">
+                  <dt className="card-grid-stat-label">Min Deposit</dt>
+                  <dd className="card-grid-stat-value">{review.minDeposit || '—'}</dd>
                 </div>
-                <div className={styles.statBox}>
-                  <dt className={styles.statLabel}>Payout</dt>
-                  <dd className={styles.statValue}>{review.payoutTime || '—'}</dd>
+                <div className="card-grid-stat-box">
+                  <dt className="card-grid-stat-label">Payout</dt>
+                  <dd className="card-grid-stat-value">{review.payoutTime || '—'}</dd>
                 </div>
-                <div className={cn(styles.statBox, styles.statBoxWide)}>
-                  <dt className={styles.statLabel}>Games</dt>
-                  <dd className={styles.statValue}>{review.gamesOffered || '—'}</dd>
+                <div className={cn('card-grid-stat-box', 'card-grid-stat-box-wide')}>
+                  <dt className="card-grid-stat-label">Games</dt>
+                  <dd className="card-grid-stat-value">{review.gamesOffered || '—'}</dd>
                 </div>
               </dl>
 
-              <div className={styles.ctaRow}>
+              <div className="card-grid-cta-row">
                 {/* Demo: review page isn't built yet — links disabled for now, restore when it exists.
-                <Link className={cn(buttons.primary, buttons.flex1)} href={reviewHref(review.slug)}>
+                <Link className={cn('btn-primary', 'btn-flex-1')} href={reviewHref(review.slug)}>
                   Play Now
                 </Link>
-                <Link className={buttons.outlineSmall} href={reviewHref(review.slug)}>
+                <Link className="btn-outline-small" href={reviewHref(review.slug)}>
                   Review
                 </Link>
                 */}
-                <span className={cn(buttons.primary, buttons.flex1)}>Play Now</span>
-                <span className={buttons.outlineSmall}>Review</span>
+                <span className={cn('btn-primary', 'btn-flex-1')}>Play Now</span>
+                <span className="btn-outline-small">Review</span>
               </div>
-              <p className={styles.disclaimer}>18+ Only | Play Responsibly</p>
+              <p className="card-grid-disclaimer">18+ Only | Play Responsibly</p>
             </article>
           )
         })}
       </div>
 
       {collapsible && (
-        <div className={styles.showAllWrap}>
+        <div className="card-grid-show-all-wrap">
           <button
             aria-expanded={showAll}
-            className={styles.showAllButton}
+            className="card-grid-show-all-button"
             onClick={() => setShowAll((open) => !open)}
             type="button"
           >
             {showAll ? 'Show fewer' : `Show all ${reviews.length} bookmakers`}{' '}
-            <ChevronDown aria-hidden="true" className={styles.showAllIcon} />
+            <ChevronDown aria-hidden="true" className="card-grid-show-all-icon" />
           </button>
         </div>
       )}

@@ -4,9 +4,8 @@ import React from 'react'
 import type { FaqBlock as FaqBlockProps } from '@/payload-types'
 
 import { SiteLink } from '@/components/Link/SiteLink'
-import { SectionEyebrow, SectionHeading, SectionIntro, SectionWrap, sectionStyles } from '@/components/Section'
+import { SectionEyebrow, SectionHeading, SectionIntro, SectionWrap } from '@/components/Section'
 import { FaqAccordion } from './Accordion'
-import styles from './Faq.module.css'
 
 export const FaqBlockComponent: React.FC<FaqBlockProps & { id?: string }> = (props) => {
   const { anchorId, ctaLink, eyebrow, heading, headingHighlight, intro, items, quickLinks, quickLinksHeading, tinted } =
@@ -14,26 +13,26 @@ export const FaqBlockComponent: React.FC<FaqBlockProps & { id?: string }> = (pro
 
   return (
     <SectionWrap anchorId={anchorId} tinted={tinted}>
-      <div className={styles.layout}>
-        <div className={styles.intro}>
+      <div className="faq-layout">
+        <div className="faq-intro">
           <SectionEyebrow>{eyebrow}</SectionEyebrow>
-          <SectionHeading className={sectionStyles.headingBase} heading={heading} highlight={headingHighlight} />
-          <SectionIntro className={sectionStyles.introBase}>{intro}</SectionIntro>
+          <SectionHeading className="section-heading" heading={heading} highlight={headingHighlight} />
+          <SectionIntro className="section-intro">{intro}</SectionIntro>
           {quickLinks && quickLinks.length > 0 && (
-            <div className={styles.quickLinksBox}>
-              <h3 className={styles.quickLinksHeading}>
-                <Sparkles aria-hidden="true" className={styles.quickLinksIcon} /> {quickLinksHeading}
+            <div className="faq-quick-links-box">
+              <h3 className="faq-quick-links-heading">
+                <Sparkles aria-hidden="true" className="faq-quick-links-icon" /> {quickLinksHeading}
               </h3>
-              <div className={styles.quickLinksList}>
+              <div className="faq-quick-links-list">
                 {quickLinks.map(({ id, link }, i) => (
-                  <SiteLink className={styles.quickLink} key={id ?? i} link={link} />
+                  <SiteLink className="faq-quick-link" key={id ?? i} link={link} />
                 ))}
               </div>
             </div>
           )}
           {ctaLink?.label && (
-            <SiteLink className={styles.ctaButton} link={ctaLink}>
-              {ctaLink.label} <ArrowRight aria-hidden="true" className={styles.ctaButtonIcon} />
+            <SiteLink className="faq-cta-button" link={ctaLink}>
+              {ctaLink.label} <ArrowRight aria-hidden="true" className="faq-cta-button-icon" />
             </SiteLink>
           )}
         </div>

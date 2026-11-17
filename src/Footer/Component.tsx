@@ -3,10 +3,10 @@ import Link from 'next/link'
 import React from 'react'
 
 import { CmsImg } from '@/components/CmsImg'
-import { SiteLink } from '@/components/Link/SiteLink'
 import { cn } from '@/utilities/ui'
 import { getCachedGlobal } from '@/utilities/getGlobals'
-import styles from './Footer.module.css'
+import { FooterColumn } from './FooterColumn'
+import { FooterLegalNav } from './FooterLegalNav'
 import { NewsletterForm } from './NewsletterForm'
 
 const SOCIAL_PATHS: Record<string, { label: string; path: string }> = {
@@ -41,22 +41,22 @@ export async function Footer() {
   const logo = footerData?.logo && typeof footerData.logo === 'object' ? footerData.logo : null
 
   return (
-    <footer className={cn('bg-footer', styles.footer)}>
-      <div className={cn('stripe-sa', styles.flagStripe)} />
-      <div className={styles.container}>
-        <div className={styles.topRow}>
+    <footer className={cn('bg-footer', 'site-footer')}>
+      <div className={cn('stripe-sa', 'site-footer-flag-stripe')} />
+      <div className="site-footer-container">
+        <div className="site-footer-top-row">
           <div>
             {logo ? (
-              <CmsImg alt="SouthAfricanBet.co.za" className={styles.logoImage} resource={logo} />
+              <CmsImg alt="SouthAfricanBet.co.za" className="site-footer-logo-image" resource={logo} />
             ) : (
-              <span className={styles.logoText}>
-                SouthAfrican<span className={styles.logoAccent}>Bet</span>.co.za
+              <span className="site-footer-logo-text">
+                SouthAfrican<span className="site-footer-logo-accent">Bet</span>.co.za
               </span>
             )}
-            {footerData?.description && <p className={styles.description}>{footerData.description}</p>}
+            {footerData?.description && <p className="site-footer-description">{footerData.description}</p>}
             {helpline && (
-              <a className={styles.helplineLink} href={`tel:${helpline.replace(/\s+/g, '')}`}>
-                <Phone aria-hidden="true" className={styles.helplineIcon} /> Toll-Free Helpline: {helpline}
+              <a className="site-footer-helpline-link" href={`tel:${helpline.replace(/\s+/g, '')}`}>
+                <Phone aria-hidden="true" className="site-footer-helpline-icon" /> Toll-Free Helpline: {helpline}
               </a>
             )}
           </div>
@@ -70,24 +70,24 @@ export async function Footer() {
           )}
         </div>
 
-        <div className={styles.noticeBox}>
-          <span className={styles.noticeBadge}>18+</span>
-          <div className={styles.noticeBody}>
-            <p className={styles.noticeTitle}>
+        <div className="site-footer-notice-box">
+          <span className="site-footer-notice-badge">18+</span>
+          <div className="site-footer-notice-body">
+            <p className="site-footer-notice-title">
               {footerData?.responsibleGamblingText || 'Gambling can be addictive, please play responsibly'}
             </p>
             {footerData?.responsibleGamblingSubtext && (
-              <p className={styles.noticeSubtext}>{footerData.responsibleGamblingSubtext}</p>
+              <p className="site-footer-notice-subtext">{footerData.responsibleGamblingSubtext}</p>
             )}
           </div>
           {authorities.length > 0 && (
-            <div className={styles.authorities}>
+            <div className="site-footer-authorities">
               {authorities.map((authority, i) => (
-                <span className={styles.authorityBadge} key={authority.id ?? i}>
+                <span className="site-footer-authority-badge" key={authority.id ?? i}>
                   {i === 0 ? (
-                    <ShieldCheck aria-hidden="true" className={styles.authorityIconPrimary} />
+                    <ShieldCheck aria-hidden="true" className="site-footer-authority-icon-primary" />
                   ) : (
-                    <BadgeCheck aria-hidden="true" className={styles.authorityIconGold} />
+                    <BadgeCheck aria-hidden="true" className="site-footer-authority-icon-gold" />
                   )}
                   {authority.name}
                 </span>
@@ -96,43 +96,27 @@ export async function Footer() {
           )}
         </div>
 
-        <div className={styles.columnsGrid}>
+        <div className="site-footer-columns-grid">
           {columns.map((column, i) => (
-            <nav aria-label={column.title} key={column.id ?? i}>
-              <h3 className={styles.columnTitle}>{column.title}</h3>
-              <span className={styles.columnRule} />
-              <ul className={styles.columnList}>
-                {(column.navItems || []).map(({ id, link }, j) => (
-                  <li key={id ?? j}>
-                    <SiteLink className={styles.columnLink} link={link} />
-                  </li>
-                ))}
-              </ul>
-            </nav>
+            <FooterColumn column={column} key={column.id ?? i} />
           ))}
         </div>
 
-        <div className={styles.bottomBar}>
-          {navItems.length > 0 && (
-            <nav aria-label="Legal" className={styles.legalNav}>
-              {navItems.map(({ id, link }, i) => (
-                <SiteLink className={styles.legalLink} key={id ?? i} link={link} />
-              ))}
-            </nav>
-          )}
-          <div className={styles.bottomRow}>
-            <p className={styles.copyright}>
+        <div className="site-footer-bottom-bar">
+          {navItems.length > 0 && <FooterLegalNav items={navItems} />}
+          <div className="site-footer-bottom-row">
+            <p className="site-footer-copyright">
               {footerData?.copyright ||
                 `© ${new Date().getFullYear()} SouthAfricanBet.co.za. All rights reserved. 18+ only. Terms and conditions apply.`}
             </p>
             {socialLinks.length > 0 && (
-              <div className={styles.socialRow}>
+              <div className="site-footer-social-row">
                 {socialLinks.map(({ id, platform, url }, i) => {
                   const social = SOCIAL_PATHS[platform]
                   if (!social) return null
                   return (
-                    <Link aria-label={social.label} className={styles.socialLink} href={url} key={id ?? i}>
-                      <svg aria-hidden="true" className={styles.socialIcon} viewBox="0 0 24 24">
+                    <Link aria-label={social.label} className="site-footer-social-link" href={url} key={id ?? i}>
+                      <svg aria-hidden="true" className="site-footer-social-icon" viewBox="0 0 24 24">
                         <path d={social.path} />
                       </svg>
                     </Link>

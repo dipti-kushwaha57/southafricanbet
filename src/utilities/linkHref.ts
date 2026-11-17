@@ -1,5 +1,7 @@
 import type { Page, Post, Review } from '@/payload-types'
 
+import { getCollectionUrlPrefix } from './collectionPath'
+
 export type LinkFields = {
   label?: string | null
   newTab?: boolean | null
@@ -18,7 +20,7 @@ export const getLinkHref = (link?: LinkFields | null): string | undefined => {
   if (link.type === 'reference' && typeof link.reference?.value === 'object') {
     const { relationTo, value } = link.reference
     if (!value.slug) return undefined
-    return `${relationTo !== 'pages' ? `/${relationTo}` : ''}/${value.slug}`
+    return `${getCollectionUrlPrefix(relationTo)}/${value.slug}`
   }
 
   return link.url || undefined

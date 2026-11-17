@@ -46,6 +46,9 @@ const nextConfig: NextConfig = {
   },
   reactStrictMode: true,
   redirects,
+  experimental: {
+    globalNotFound: true,
+  },
   // Dev-server access is blocked by Next.js from any origin not listed here — add your LAN IP
   // whenever you need to preview on another device (phone, another computer on the network).
   allowedDevOrigins: ['local.payloadcms.com', 'localhost', '127.0.0.1', '192.168.1.39'],

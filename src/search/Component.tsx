@@ -1,6 +1,7 @@
 'use client'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Search as SearchIcon } from 'lucide-react'
 import React, { useState, useEffect } from 'react'
 import { useDebounce } from '@/utilities/useDebounce'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -21,27 +22,31 @@ export const Search: React.FC = () => {
   }, [debouncedValue, router])
 
   return (
-    <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-        }}
-      >
-        <Label htmlFor="search" className="sr-only">
-          Search
-        </Label>
+    <form
+      className="search-page-field-form"
+      onSubmit={(e) => {
+        e.preventDefault()
+      }}
+    >
+      <Label className="sr-only" htmlFor="search">
+        Search
+      </Label>
+      <div className="search-page-field-wrap">
+        <SearchIcon aria-hidden="true" className="search-page-field-icon" />
         <Input
+          autoComplete="off"
+          className="search-page-field"
           id="search"
           onChange={(event) => {
             setValue(event.target.value)
           }}
+          placeholder="Search news, reviews and bonuses..."
           value={value}
-          placeholder="Search"
         />
-        <button type="submit" className="sr-only">
-          submit
+        <button aria-label="Search" className="search-page-field-submit" type="submit">
+          <SearchIcon aria-hidden="true" className="search-page-field-submit-icon" />
         </button>
-      </form>
-    </div>
+      </div>
+    </form>
   )
 }

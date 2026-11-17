@@ -1,6 +1,7 @@
 import type { Metadata } from 'next/types'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
+import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
@@ -8,27 +9,30 @@ import { Search } from '@/search/Component'
 import PageClient from './page.client'
 import { CardPostData } from '@/components/Card'
 
+const RESULTS_PER_PAGE = 9
+
 type Args = {
   searchParams: Promise<{
-    q: string
+    page?: string
+    q?: string
   }>
 }
 export default async function Page({ searchParams: searchParamsPromise }: Args) {
-  const { q: query } = await searchParamsPromise
+  const { page, q: query } = await searchParamsPromise
+  const sanitizedPage = Number(page) > 0 ? Number(page) : 1
   const payload = await getPayload({ config: configPromise })
 
   const posts = await payload.find({
     collection: 'search',
     depth: 1,
-    limit: 12,
+    limit: RESULTS_PER_PAGE,
+    page: sanitizedPage,
     select: {
       title: true,
       slug: true,
       categories: true,
       meta: true,
     },
-    // pagination: false reduces overhead if you don't need totalDocs
-    pagination: false,
     ...(query
       ? {
           where: {
@@ -60,29 +64,52 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
   })
 
   return (
-    <div className="pt-24 pb-24">
+    <>
       <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none text-center">
-          <h1 className="mb-8 lg:mb-16">Search</h1>
 
-          <div className="max-w-[50rem] mx-auto">
-            <Search />
-          </div>
+      <div className="search-page-header section-container text-center">
+        <h1 className="search-page-title">Search</h1>
+
+        <div className="search-page-form">
+          <Search />
         </div>
+        {query && (
+          <p className="search-page-query-note">
+            Showing results for &ldquo;{query}&rdquo;
+          </p>
+        )}
       </div>
 
-      {posts.totalDocs > 0 ? (
-        <CollectionArchive posts={posts.docs as CardPostData[]} />
-      ) : (
-        <div className="container">No results found.</div>
-      )}
-    </div>
+      <section className="section-wrap">
+        <div className="section-container archive-toolbar">
+          {posts.totalDocs} result{posts.totalDocs === 1 ? '' : 's'} found
+        </div>
+
+        {posts.totalDocs > 0 ? (
+          <CollectionArchive posts={posts.docs as CardPostData[]} />
+        ) : (
+          <div className="section-container">
+            <div className="archive-empty">No results found.</div>
+          </div>
+        )}
+
+        {posts.page && posts.totalPages > 1 && (
+          <div className="section-container">
+            <Pagination
+              basePath="/search"
+              page={posts.page}
+              query={query ? { q: query } : {}}
+              totalPages={posts.totalPages}
+            />
+          </div>
+        )}
+      </section>
+    </>
   )
 }
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Search`,
+    title: `Search | SouthAfricanBet.co.za`,
   }
 }

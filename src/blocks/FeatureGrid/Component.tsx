@@ -6,54 +6,52 @@ import type { FeatureGridBlock as FeatureGridProps } from '@/payload-types'
 import { CmsImg } from '@/components/CmsImg'
 import { SiteLink } from '@/components/Link/SiteLink'
 import { Section } from '@/components/Section'
-import { cn } from '@/utilities/ui'
-import styles from './FeatureGrid.module.css'
 
 type Items = FeatureGridProps['items']
 
 const Steps: React.FC<{ callout?: string | null; items: Items }> = ({ callout, items }) => (
-  <div className={styles.stepsGrid}>
+  <div className="feature-grid-steps-grid">
     {items.map((item, i) => (
-      <div className={styles.stepCard} key={item.id ?? i}>
-        <span className={styles.stepNumber}>{String(i + 1).padStart(2, '0')}</span>
-        <h3 className={styles.stepTitle}>{item.title}</h3>
-        {item.description && <p className={styles.stepDescription}>{item.description}</p>}
+      <div className="feature-grid-step-card" key={item.id ?? i}>
+        <span className="feature-grid-step-number">{String(i + 1).padStart(2, '0')}</span>
+        <h3 className="feature-grid-step-title">{item.title}</h3>
+        {item.description && <p className="feature-grid-step-description">{item.description}</p>}
       </div>
     ))}
     {callout && (
-      <div className={styles.stepCallout}>
-        <p className={styles.stepCalloutLabel}>Tip</p>
-        <p className={styles.stepCalloutText}>{callout}</p>
+      <div className="feature-grid-step-callout">
+        <p className="feature-grid-step-callout-label">Tip</p>
+        <p className="feature-grid-step-callout-text">{callout}</p>
       </div>
     )}
   </div>
 )
 
 const Criteria: React.FC<{ items: Items }> = ({ items }) => (
-  <div className={styles.criteriaGrid}>
+  <div className="feature-grid-criteria-grid">
     {items.map((item, i) => (
-      <div className={styles.criteriaCard} key={item.id ?? i}>
-        <span className={styles.criteriaNumber}>{i + 1}</span>
-        <h3 className={styles.criteriaTitle}>{item.title}</h3>
-        {item.description && <p className={styles.criteriaDescription}>{item.description}</p>}
+      <div className="feature-grid-criteria-card" key={item.id ?? i}>
+        <span className="feature-grid-criteria-number">{i + 1}</span>
+        <h3 className="feature-grid-criteria-title">{item.title}</h3>
+        {item.description && <p className="feature-grid-criteria-description">{item.description}</p>}
       </div>
     ))}
   </div>
 )
 
 const Sports: React.FC<{ items: Items }> = ({ items }) => (
-  <div className={styles.sportsGrid}>
+  <div className="feature-grid-sports-grid">
     {items.map((item, i) => (
-      <div className={styles.sportsCard} key={item.id ?? i}>
-        <div className={styles.sportsHead}>
+      <div className="feature-grid-sports-card" key={item.id ?? i}>
+        <div className="feature-grid-sports-head">
           {item.icon && typeof item.icon === 'object' && (
-            <CmsImg className={styles.sportsIcon} resource={item.icon} />
+            <CmsImg className="feature-grid-sports-icon" resource={item.icon} />
           )}
-          <h3 className={styles.sportsTitle}>{item.title}</h3>
+          <h3 className="feature-grid-sports-title">{item.title}</h3>
         </div>
-        {item.description && <p className={styles.sportsDescription}>{item.description}</p>}
+        {item.description && <p className="feature-grid-sports-description">{item.description}</p>}
         {item.tip && (
-          <p className={styles.sportsTip}>
+          <p className="feature-grid-sports-tip">
             <b>Pro Tip:</b> {item.tip}
           </p>
         )}
@@ -64,25 +62,25 @@ const Sports: React.FC<{ items: Items }> = ({ items }) => (
 
 const Trust: React.FC<{ block: FeatureGridProps }> = ({ block }) => (
   <>
-    <div className={styles.trustGrid}>
+    <div className="feature-grid-trust-grid">
       {block.items.map((item, i) => (
-        <div className={cn('trust-card', styles.trustCard)} key={item.id ?? i}>
-          <BadgeCheck aria-hidden="true" className={styles.trustIcon} />
-          <h3 className={styles.trustTitle}>{item.title}</h3>
-          {item.description && <p className={styles.trustDescription}>{item.description}</p>}
+        <div className="feature-grid-trust-card" key={item.id ?? i}>
+          <BadgeCheck aria-hidden="true" className="feature-grid-trust-icon" />
+          <h3 className="feature-grid-trust-title">{item.title}</h3>
+          {item.description && <p className="feature-grid-trust-description">{item.description}</p>}
         </div>
       ))}
     </div>
-    {block.quote && <blockquote className={styles.quote}>“{block.quote}”</blockquote>}
+    {block.quote && <blockquote className="feature-grid-quote">“{block.quote}”</blockquote>}
     {block.ctaHeading && (
-      <div className={styles.ctaBanner}>
-        <div className={styles.ctaBannerGrid}>
+      <div className="feature-grid-cta-banner">
+        <div className="feature-grid-cta-banner-grid">
           <div>
-            <h2 className={styles.ctaHeading}>{block.ctaHeading}</h2>
-            {block.ctaText && <p className={styles.ctaText}>{block.ctaText}</p>}
+            <h2 className="feature-grid-cta-heading">{block.ctaHeading}</h2>
+            {block.ctaText && <p className="feature-grid-cta-text">{block.ctaText}</p>}
           </div>
-          <SiteLink className={styles.ctaButton} link={block.ctaLink}>
-            {block.ctaLink?.label} <ArrowRight aria-hidden="true" className={styles.ctaButtonIcon} />
+          <SiteLink className="feature-grid-cta-button" link={block.ctaLink}>
+            {block.ctaLink?.label} <ArrowRight aria-hidden="true" className="feature-grid-cta-button-icon" />
           </SiteLink>
         </div>
       </div>

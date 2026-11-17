@@ -8,7 +8,6 @@ import type { Page } from '@/payload-types'
 import { ReviewsBlockComponent } from '@/blocks/ReviewsBlock/Component'
 import { SiteLink } from '@/components/Link/SiteLink'
 import { cn } from '@/utilities/ui'
-import styles from './BettingHero.module.css'
 
 /** Plain text of every paragraph in a Lexical state (the hero intro is a single <p>). */
 const paragraphsOf = (richText: Page['hero']['richText']): string[] => {
@@ -36,12 +35,12 @@ const OfferTicker: React.FC = async () => {
   if (!docs.length) return null
 
   return (
-    <div className={styles.ticker}>
-      <div className={cn('animate-marquee', styles.tickerTrack)}>
+    <div className="hero-ticker">
+      <div className={cn('animate-marquee', 'hero-ticker-track')}>
         {[...docs, ...docs].map((review, i) => (
-          <span className={styles.tickerItem} key={i}>
-            <Sparkles aria-hidden="true" className={styles.tickerIcon} /> {review.title}:{' '}
-            <span className={styles.tickerOffer}>{review.bonusText}</span>
+          <span className="hero-ticker-item" key={i}>
+            <Sparkles aria-hidden="true" className="hero-ticker-icon" /> {review.title}:{' '}
+            <span className="hero-ticker-offer">{review.bonusText}</span>
           </span>
         ))}
       </div>
@@ -84,21 +83,21 @@ export const BettingHero: React.FC<Page['hero']> = ({
     .toUpperCase()
 
   return (
-    <section className={cn('bg-hero', styles.hero)}>
-      <div className={styles.heroGrid}>
-        <div className={styles.content}>
+    <section className={cn('bg-hero', 'hero')}>
+      <div className="hero-grid">
+        <div className="hero-content">
           {badge && (
-            <span className={styles.badge}>
-              <ShieldCheck aria-hidden="true" className={styles.badgeIcon} />
+            <span className="hero-badge">
+              <ShieldCheck aria-hidden="true" className="hero-badge-icon" />
               {badge}
             </span>
           )}
 
           {(line1 || line2 || highlight) && (
-            <h1 className={styles.heading}>
-              {line1 && <span className={styles.headingLine}>{line1}</span>}
+            <h1 className="hero-heading">
+              {line1 && <span className="hero-heading-line">{line1}</span>}
               {(line2 || highlight) && (
-                <span className={styles.headingLine}>
+                <span className="hero-heading-line">
                   {line2}
                   {line2 && highlight && ' '}
                   {highlight && <span className="text-gradient">{highlight}</span>}
@@ -108,24 +107,24 @@ export const BettingHero: React.FC<Page['hero']> = ({
           )}
 
           {intro.map((text, i) => (
-            <p className={styles.intro} key={i}>
+            <p className="hero-intro" key={i}>
               {text}
             </p>
           ))}
 
           {Array.isArray(links) && links.length > 0 && (
-            <div className={styles.ctaRow}>
+            <div className="hero-cta-row">
               {links.map(({ id, link }, i) => {
                 const Icon = link?.icon ? ICONS[link.icon as keyof typeof ICONS] : null
                 const outline = link?.appearance === 'outline'
                 return (
                   <SiteLink
-                    className={cn(styles.ctaButton, outline ? styles.ctaOutline : styles.ctaSolid)}
+                    className={cn('hero-cta-button', outline ? 'hero-cta-outline' : 'hero-cta-solid')}
                     key={id ?? i}
                     link={link}
                   >
                     {Icon && (
-                      <Icon aria-hidden="true" className={cn(styles.ctaIcon, outline && styles.ctaIconOutline)} />
+                      <Icon aria-hidden="true" className={cn('hero-cta-icon', outline && 'hero-cta-icon-outline')} />
                     )}
                     {link?.label}
                   </SiteLink>
@@ -135,14 +134,14 @@ export const BettingHero: React.FC<Page['hero']> = ({
           )}
 
           {byline && (
-            <div className={styles.bylineRow}>
-              <div className={styles.avatar}>{initials}</div>
+            <div className="hero-byline-row">
+              <div className="hero-avatar">{initials}</div>
               <div>
-                <p className={styles.bylineName}>
+                <p className="hero-byline-name">
                   {byline}
-                  {bylineRole && <span className={styles.bylineRole}> · {bylineRole}</span>}
+                  {bylineRole && <span className="hero-byline-role"> · {bylineRole}</span>}
                 </p>
-                {updatedText && <p className={styles.updatedText}>{updatedText}</p>}
+                {updatedText && <p className="hero-updated-text">{updatedText}</p>}
               </div>
             </div>
           )}

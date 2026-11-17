@@ -9,9 +9,8 @@ import { ArrowRight, ArrowUpRight, CalendarDays } from 'lucide-react'
 
 import { CmsImg } from '@/components/CmsImg'
 import { SiteLink } from '@/components/Link/SiteLink'
-import { SectionEyebrow, SectionHeading, SectionIntro, SectionWrap, sectionStyles } from '@/components/Section'
+import { SectionEyebrow, SectionHeading, SectionIntro, SectionWrap } from '@/components/Section'
 import { cn } from '@/utilities/ui'
-import styles from './PostsBlock.module.css'
 
 async function getPosts(props: PostsBlockProps): Promise<Post[]> {
   const { mode, limit: limitFromProps, categories, selectedPosts } = props
@@ -66,11 +65,11 @@ const Meta: React.FC<{ featured?: boolean; post: Post }> = ({ featured, post }) 
     post.categories?.[0] && typeof post.categories[0] === 'object' ? post.categories[0] : null
 
   return (
-    <div className={styles.meta}>
-      {category && <span className={styles.metaCategory}>{category.title}</span>}
+    <div className="posts-meta">
+      {category && <span className="posts-meta-category">{category.title}</span>}
       {post.publishedAt && (
-        <span className={styles.metaDate}>
-          <CalendarDays aria-hidden="true" className={styles.metaDateIcon} /> {formatDate(post.publishedAt, !!featured)}
+        <span className="posts-meta-date">
+          <CalendarDays aria-hidden="true" className="posts-meta-date-icon" /> {formatDate(post.publishedAt, !!featured)}
         </span>
       )}
     </div>
@@ -81,30 +80,30 @@ const Meta: React.FC<{ featured?: boolean; post: Post }> = ({ featured, post }) 
 const ReadMore: React.FC<{ className: string; href: string }> = ({ className }) => (
   /*
   <Link className={className} href={href}>
-    Read article <ArrowRight aria-hidden="true" className={styles.readMoreIcon} />
+    Read article <ArrowRight aria-hidden="true" className="posts-read-more-icon" />
   </Link>
   */
   <span className={className}>
-    Read article <ArrowRight aria-hidden="true" className={styles.readMoreIcon} />
+    Read article <ArrowRight aria-hidden="true" className="posts-read-more-icon" />
   </span>
 )
 
 const FeaturedPost: React.FC<{ post: Post }> = ({ post }) => {
-  const href = `/posts/${post.slug}`
+  const href = `/news/${post.slug}`
 
   return (
-    <article className={styles.featuredCard}>
+    <article className="posts-featured-card">
       {/* Demo: link disabled for now, restore when post pages are part of the demo.
-      <Link className={styles.featuredImageWrap} href={href}>
+      <Link className="posts-featured-image-wrap" href={href}>
       */}
-      <div className={styles.featuredImageWrap}>
-        <CmsImg alt={post.title} className={styles.featuredImage} resource={post.heroImage} />
-        <span className={styles.featuredBadge}>Featured</span>
+      <div className="posts-featured-image-wrap">
+        <CmsImg alt={post.title} className="posts-featured-image" resource={post.heroImage} />
+        <span className="posts-featured-badge">Featured</span>
       </div>
       {/* </Link> */}
-      <div className={styles.featuredBody}>
+      <div className="posts-featured-body">
         <Meta featured post={post} />
-        <h3 className={styles.featuredTitle}>
+        <h3 className="posts-featured-title">
           {/* Demo: link disabled for now, restore when post pages are part of the demo.
           <Link className="transition hover:text-primary" href={href}>
             {post.title}
@@ -112,28 +111,28 @@ const FeaturedPost: React.FC<{ post: Post }> = ({ post }) => {
           */}
           {post.title}
         </h3>
-        {post.meta?.description && <p className={styles.featuredDescription}>{post.meta.description}</p>}
-        <ReadMore className={cn(styles.readMore, styles.featuredReadMore)} href={href} />
+        {post.meta?.description && <p className="posts-featured-description">{post.meta.description}</p>}
+        <ReadMore className={cn('posts-read-more', 'posts-featured-read-more')} href={href} />
       </div>
     </article>
   )
 }
 
 const PostCard: React.FC<{ post: Post }> = ({ post }) => {
-  const href = `/posts/${post.slug}`
+  const href = `/news/${post.slug}`
 
   return (
-    <article className={styles.card}>
+    <article className="posts-card">
       {/* Demo: link disabled for now, restore when post pages are part of the demo.
-      <Link className={styles.cardImageWrap} href={href}>
+      <Link className="posts-card-image-wrap" href={href}>
       */}
-      <div className={styles.cardImageWrap}>
-        <CmsImg alt={post.title} className={styles.cardImage} resource={post.heroImage} />
+      <div className="posts-card-image-wrap">
+        <CmsImg alt={post.title} className="posts-card-image" resource={post.heroImage} />
       </div>
       {/* </Link> */}
-      <div className={styles.cardBody}>
+      <div className="posts-card-body">
         <Meta post={post} />
-        <h3 className={styles.cardTitle}>
+        <h3 className="posts-card-title">
           {/* Demo: link disabled for now, restore when post pages are part of the demo.
           <Link className="transition hover:text-primary" href={href}>
             {post.title}
@@ -141,8 +140,8 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
           */}
           {post.title}
         </h3>
-        {post.meta?.description && <p className={styles.cardDescription}>{post.meta.description}</p>}
-        <ReadMore className={cn(styles.readMore, styles.cardReadMore)} href={href} />
+        {post.meta?.description && <p className="posts-card-description">{post.meta.description}</p>}
+        <ReadMore className={cn('posts-read-more', 'posts-card-read-more')} href={href} />
       </div>
     </article>
   )
@@ -159,24 +158,24 @@ export const PostsBlockComponent: React.FC<PostsBlockProps & { id?: string }> = 
 
   return (
     <SectionWrap anchorId={anchorId} tinted={tinted}>
-      <div className={sectionStyles.container}>
-        <div className={styles.headerRow}>
+      <div className="section-container">
+        <div className="posts-header-row">
           <div>
             <SectionEyebrow>{eyebrow}</SectionEyebrow>
-            <SectionHeading className={sectionStyles.headingBase} heading={heading} highlight={headingHighlight} />
-            <SectionIntro className={cn(sectionStyles.introBase, sectionStyles.introConstrainedWide)}>
+            <SectionHeading className="section-heading" heading={heading} highlight={headingHighlight} />
+            <SectionIntro className={cn('section-intro', 'section-intro-constrained-wide')}>
               {intro}
             </SectionIntro>
           </div>
-          <SiteLink className={styles.viewAllButton} link={viewAllLink}>
-            {viewAllLink?.label} <ArrowUpRight aria-hidden="true" className={styles.viewAllIcon} />
+          <SiteLink className="posts-view-all-button" link={viewAllLink}>
+            {viewAllLink?.label} <ArrowUpRight aria-hidden="true" className="posts-view-all-icon" />
           </SiteLink>
         </div>
 
-        <div className={styles.postsArea}>
+        <div className="posts-area">
           <FeaturedPost post={featuredPost} />
           {restPosts.length > 0 && (
-            <div className={styles.cardsGrid}>
+            <div className="posts-cards-grid">
               {restPosts.map((post) => (
                 <PostCard key={post.id} post={post} />
               ))}

@@ -9,7 +9,6 @@ import type { SearchResults } from '@/app/(frontend)/next/search/route'
 import { initialsLogoSrc } from '@/components/BookmakerLogo'
 import { cn } from '@/utilities/ui'
 import { reviewHref } from '@/utilities/reviewHref'
-import styles from './SearchPanel.module.css'
 
 const SUGGESTIONS = ['Free spins', 'Welcome bonus', 'Rugby', 'Payout']
 
@@ -20,9 +19,9 @@ const formatDate = (iso: string) => {
 }
 
 const Label: React.FC<{ children: React.ReactNode; count?: number }> = ({ children, count }) => (
-  <p className={styles.resultsLabel}>
+  <p className="search-panel-results-label">
     {children}
-    {count !== undefined && <span className={styles.resultsLabelCount}>{count}</span>}
+    {count !== undefined && <span className="search-panel-results-label-count">{count}</span>}
   </p>
 )
 
@@ -83,9 +82,9 @@ export const SearchPanel: React.FC<{ onClose: () => void; open: boolean }> = ({ 
 
   return (
     <>
-      <button aria-label="Close search" className={styles.scrim} onClick={onClose} tabIndex={-1} type="button" />
-      <div aria-label="Site search" className={styles.panel} role="dialog">
-        <div className={styles.panelInner}>
+      <button aria-label="Close search" className="search-panel-scrim" onClick={onClose} tabIndex={-1} type="button" />
+      <div aria-label="Site search" className="search-panel-panel" role="dialog">
+        <div className="search-panel-panel-inner">
           <form
             onSubmit={(event) => {
               event.preventDefault()
@@ -94,52 +93,54 @@ export const SearchPanel: React.FC<{ onClose: () => void; open: boolean }> = ({ 
               onClose()
             }}
           >
-            <div className={styles.fieldWrap}>
-              <Search aria-hidden="true" className={styles.fieldIcon} />
+            <div className="search-panel-field-wrap">
+              <Search aria-hidden="true" className="search-panel-field-icon" />
               <input
                 aria-label="Search bookmakers, sports, bonuses"
                 autoComplete="off"
-                className={styles.field}
+                className="search-panel-field"
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search bookmakers, sports…"
                 ref={inputRef}
                 type="search"
                 value={query}
               />
-              <div className={styles.fieldActions}>
+              <div className="search-panel-field-actions">
                 {query && (
                   <button
                     aria-label="Clear search"
-                    className={styles.clearButton}
+                    className="search-panel-clear-button"
                     onClick={() => {
                       setQuery('')
                       inputRef.current?.focus()
                     }}
                     type="button"
                   >
-                    <X aria-hidden="true" className={styles.clearButtonIcon} />
+                    <X aria-hidden="true" className="search-panel-clear-button-icon" />
                   </button>
                 )}
               </div>
             </div>
           </form>
 
-          <div aria-busy={loading} className={styles.body}>
-            {failed && <p className={styles.errorNotice}>Search is unavailable right now. Please try again in a moment.</p>}
+          <div aria-busy={loading} className="search-panel-body">
+            {failed && (
+              <p className="search-panel-error-notice">Search is unavailable right now. Please try again in a moment.</p>
+            )}
 
-            {!failed && !results && <p className={styles.loadingNotice}>Searching…</p>}
+            {!failed && !results && <p className="search-panel-loading-notice">Searching…</p>}
 
             {empty && (
-              <div className={styles.empty}>
-                <span className={styles.emptyIcon}>
-                  <SearchX aria-hidden="true" className={styles.emptyIconGlyph} />
+              <div className="search-panel-empty">
+                <span className="search-panel-empty-icon">
+                  <SearchX aria-hidden="true" className="search-panel-empty-icon-glyph" />
                 </span>
-                <p className={styles.emptyTitle}>No results for “{term}”</p>
-                <p className={styles.emptyHint}>Check the spelling or try one of these:</p>
-                <div className={styles.emptySuggestions}>
+                <p className="search-panel-empty-title">No results for “{term}”</p>
+                <p className="search-panel-empty-hint">Check the spelling or try one of these:</p>
+                <div className="search-panel-empty-suggestions">
                   {SUGGESTIONS.map((suggestion) => (
                     <button
-                      className={styles.suggestionButton}
+                      className="search-panel-suggestion-button"
                       key={suggestion}
                       onClick={() => setQuery(suggestion)}
                       type="button"
@@ -152,34 +153,34 @@ export const SearchPanel: React.FC<{ onClose: () => void; open: boolean }> = ({ 
             )}
 
             {!failed && hasResults && results && (
-              <div className={cn(styles.resultsGrid, loading && styles.resultsGridLoading)}>
+              <div className={cn('search-panel-results-grid', loading && 'search-panel-results-grid-loading')}>
                 {results.reviews.length > 0 && (
-                  <div className={styles.resultsColumn}>
+                  <div className="search-panel-results-column">
                     <Label count={term ? results.reviews.length : undefined}>
                       {term ? 'Bookmakers' : 'Top bookmakers'}
                     </Label>
-                    <ul className={styles.resultsList}>
+                    <ul className="search-panel-results-list">
                       {results.reviews.map((review) => (
                         <li key={review.id}>
-                          <Link className={styles.resultRow} href={reviewHref(review.slug)} onClick={onClose}>
+                          <Link className="search-panel-result-row" href={reviewHref(review.slug)} onClick={onClose}>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                               alt=""
-                              className={styles.resultLogo}
+                              className="search-panel-result-logo"
                               src={review.logo || initialsLogoSrc(review.title, review.brandColor)}
                             />
-                            <div className={styles.resultInfo}>
-                              <div className={styles.resultInfoTop}>
-                                <span className={styles.resultName}>{review.title}</span>
-                                <span className={styles.resultRating}>
-                                  <Star aria-hidden="true" className={styles.resultStarIcon} />
+                            <div className="search-panel-result-info">
+                              <div className="search-panel-result-info-top">
+                                <span className="search-panel-result-name">{review.title}</span>
+                                <span className="search-panel-result-rating">
+                                  <Star aria-hidden="true" className="search-panel-result-star-icon" />
                                   {review.rating.toFixed(1)}
-                                  <span className={styles.resultRatingOutOf}>/5</span>
+                                  <span className="search-panel-result-rating-out-of">/5</span>
                                 </span>
                               </div>
-                              {review.bonusText && <p className={styles.resultBonus}>{review.bonusText}</p>}
+                              {review.bonusText && <p className="search-panel-result-bonus">{review.bonusText}</p>}
                             </div>
-                            <ArrowRight aria-hidden="true" className={styles.resultArrow} />
+                            <ArrowRight aria-hidden="true" className="search-panel-result-arrow" />
                           </Link>
                         </li>
                       ))}
@@ -188,28 +189,28 @@ export const SearchPanel: React.FC<{ onClose: () => void; open: boolean }> = ({ 
                 )}
 
                 {results.posts.length > 0 && (
-                  <div className={styles.resultsColumn}>
+                  <div className="search-panel-results-column">
                     <Label count={term ? results.posts.length : undefined}>
                       {term ? 'Articles' : 'Latest articles'}
                     </Label>
-                    <ul className={styles.resultsList}>
+                    <ul className="search-panel-results-list">
                       {results.posts.map((post) => (
                         <li key={post.id}>
-                          <Link className={styles.resultRow} href={`/posts/${post.slug}`} onClick={onClose}>
+                          <Link className="search-panel-result-row" href={`/news/${post.slug}`} onClick={onClose}>
                             {post.image ? (
                               // eslint-disable-next-line @next/next/no-img-element
-                              <img alt="" className={styles.postThumb} src={post.image} />
+                              <img alt="" className="search-panel-post-thumb" src={post.image} />
                             ) : (
-                              <span className={styles.postThumbPlaceholder} />
+                              <span className="search-panel-post-thumb-placeholder" />
                             )}
-                            <div className={styles.resultInfo}>
-                              <p className={styles.postTitle}>{post.title}</p>
-                              <p className={styles.postMeta}>
+                            <div className="search-panel-result-info">
+                              <p className="search-panel-post-title">{post.title}</p>
+                              <p className="search-panel-post-meta">
                                 {post.category}
                                 {post.category && post.publishedAt && <span aria-hidden="true">·</span>}
                                 {post.publishedAt && (
                                   <>
-                                    <CalendarDays aria-hidden="true" className={styles.postMetaIcon} />
+                                    <CalendarDays aria-hidden="true" className="search-panel-post-meta-icon" />
                                     {formatDate(post.publishedAt)}
                                   </>
                                 )}
@@ -225,9 +226,13 @@ export const SearchPanel: React.FC<{ onClose: () => void; open: boolean }> = ({ 
             )}
 
             {term && hasResults && (
-              <div className={styles.seeAll}>
-                <Link className={styles.seeAllLink} href={`/search?q=${encodeURIComponent(term)}`} onClick={onClose}>
-                  See all results for “{term}” <ArrowRight aria-hidden="true" className={styles.seeAllIcon} />
+              <div className="search-panel-see-all">
+                <Link
+                  className="search-panel-see-all-link"
+                  href={`/search?q=${encodeURIComponent(term)}`}
+                  onClick={onClose}
+                >
+                  See all results for “{term}” <ArrowRight aria-hidden="true" className="search-panel-see-all-icon" />
                 </Link>
               </div>
             )}

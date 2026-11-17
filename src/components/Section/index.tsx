@@ -2,8 +2,6 @@ import React from 'react'
 
 import { cn } from '@/utilities/ui'
 
-import styles from './Section.module.css'
-
 /** Splits `heading` into [lead, gradientTail] when it ends with `highlight`. */
 const splitHighlight = (heading: string, highlight?: string | null): [string, string] => {
   if (highlight && heading.endsWith(highlight)) {
@@ -13,13 +11,13 @@ const splitHighlight = (heading: string, highlight?: string | null): [string, st
 }
 
 export const SectionEyebrow: React.FC<{ children?: React.ReactNode }> = ({ children }) =>
-  children ? <p className={styles.eyebrow}>{children}</p> : null
+  children ? <p className="section-eyebrow">{children}</p> : null
 
 export const SectionHeading: React.FC<{
   className?: string
   heading?: string | null
   highlight?: string | null
-}> = ({ className = cn(styles.headingBase, styles.headingConstrained), heading, highlight }) => {
+}> = ({ className = 'section-heading section-heading-constrained', heading, highlight }) => {
   if (!heading) return null
   const [lead, tail] = splitHighlight(heading, highlight)
 
@@ -33,7 +31,7 @@ export const SectionHeading: React.FC<{
 
 export const SectionIntro: React.FC<{ children?: React.ReactNode; className?: string }> = ({
   children,
-  className = cn(styles.introBase, styles.introConstrained),
+  className = 'section-intro section-intro-constrained',
 }) => (children ? <p className={className}>{children}</p> : null)
 
 /** <section> shell; `tinted` adds the warm gradient band with top/bottom borders. */
@@ -43,12 +41,12 @@ export const SectionWrap: React.FC<{
   tinted?: boolean | null
 }> = ({ anchorId, children, tinted }) => {
   const section = (
-    <section className={styles.wrap} id={anchorId || undefined}>
+    <section className="section-wrap" id={anchorId || undefined}>
       {children}
     </section>
   )
 
-  return tinted ? <div className={cn('bg-howto', styles.tinted)}>{section}</div> : section
+  return tinted ? <div className={cn('bg-howto', 'section-tinted')}>{section}</div> : section
 }
 
 /** Standard section: eyebrow, heading, intro, then `children` below. */
@@ -62,13 +60,11 @@ export const Section: React.FC<{
   tinted?: boolean | null
 }> = ({ anchorId, children, eyebrow, heading, headingHighlight, intro, tinted }) => (
   <SectionWrap anchorId={anchorId} tinted={tinted}>
-    <div className={styles.container}>
+    <div className="section-container">
       <SectionEyebrow>{eyebrow}</SectionEyebrow>
       <SectionHeading heading={heading} highlight={headingHighlight} />
       <SectionIntro>{intro}</SectionIntro>
-      {children && <div className={styles.content}>{children}</div>}
+      {children && <div className="section-content">{children}</div>}
     </div>
   </SectionWrap>
 )
-
-export { styles as sectionStyles }

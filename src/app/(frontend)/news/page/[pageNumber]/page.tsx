@@ -31,41 +31,55 @@ export default async function Page({ params: paramsPromise }: Args) {
     limit: 12,
     page: sanitizedPageNumber,
     overrideAccess: false,
+    select: {
+      title: true,
+      slug: true,
+      categories: true,
+      meta: true,
+      publishedAt: true,
+    },
   })
 
   return (
-    <div className="pt-24 pb-24">
+    <>
       <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none">
-          <h1>Posts</h1>
+
+      <div className="bg-hero low-impact-hero">
+        <div className="low-impact-hero-inner">
+          <h1 className="low-impact-hero-title">Latest News</h1>
+          <p className="low-impact-hero-text">
+            Stay up to date with the latest betting, bonus and sportsbook news from South Africa.
+          </p>
         </div>
       </div>
 
-      <div className="container mb-8">
-        <PageRange
-          collection="posts"
-          currentPage={posts.page}
-          limit={12}
-          totalDocs={posts.totalDocs}
-        />
-      </div>
+      <section className="section-wrap">
+        <div className="section-container archive-toolbar">
+          <PageRange
+            collection="posts"
+            collectionLabels={{ plural: 'news articles', singular: 'news article' }}
+            currentPage={posts.page}
+            limit={12}
+            totalDocs={posts.totalDocs}
+          />
+        </div>
 
-      <CollectionArchive posts={posts.docs} />
+        <CollectionArchive posts={posts.docs} />
 
-      <div className="container">
         {posts?.page && posts?.totalPages > 1 && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
+          <div className="section-container">
+            <Pagination page={posts.page} totalPages={posts.totalPages} />
+          </div>
         )}
-      </div>
-    </div>
+      </section>
+    </>
   )
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { pageNumber } = await paramsPromise
   return {
-    title: `Payload Website Template Posts Page ${pageNumber || ''}`,
+    title: `Latest Betting News – Page ${pageNumber || ''} | SouthAfricanBet.co.za`,
   }
 }
 

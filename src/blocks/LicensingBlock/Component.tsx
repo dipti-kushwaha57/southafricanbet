@@ -4,7 +4,6 @@ import React from 'react'
 import type { LicensingBlock as LicensingBlockProps } from '@/payload-types'
 
 import { Section } from '@/components/Section'
-import styles from './LicensingBlock.module.css'
 
 export const LicensingBlockComponent: React.FC<LicensingBlockProps & { id?: string }> = (props) => {
   const {
@@ -31,34 +30,34 @@ export const LicensingBlockComponent: React.FC<LicensingBlockProps & { id?: stri
       intro={intro}
       tinted={tinted}
     >
-      <div className={styles.grid}>
-        <div className={styles.card}>
-          <h3 className={styles.cardTitle}>{authoritiesHeading}</h3>
-          <ul className={styles.authorityList}>
+      <div className="licensing-grid">
+        <div className="licensing-card">
+          <h3 className="licensing-card-title">{authoritiesHeading}</h3>
+          <ul className="licensing-authority-list">
             {(authorities || []).map((authority, i) => (
-              <li className={styles.authorityItem} key={authority.id ?? i}>
-                <ShieldCheck aria-hidden="true" className={styles.authorityIcon} />
+              <li className="licensing-authority-item" key={authority.id ?? i}>
+                <ShieldCheck aria-hidden="true" className="licensing-authority-icon" />
                 {authority.name}
               </li>
             ))}
           </ul>
           {proTip && (
-            <p className={styles.proTip}>
+            <p className="licensing-pro-tip">
               <b>Pro Tip:</b> {proTip}
             </p>
           )}
         </div>
-        <div className={styles.benefitsCard}>
-          <h3 className={styles.cardTitle}>{benefitsHeading}</h3>
-          <ul className={styles.benefitsList}>
+        <div className="licensing-benefits-card">
+          <h3 className="licensing-card-title">{benefitsHeading}</h3>
+          <ul className="licensing-benefits-list">
             {(benefits || []).map((benefit, i) => (
-              <li className={styles.benefitItem} key={benefit.id ?? i}>
-                <Check aria-hidden="true" className={styles.benefitIcon} />
+              <li className="licensing-benefit-item" key={benefit.id ?? i}>
+                <Check aria-hidden="true" className="licensing-benefit-icon" />
                 {benefit.text}
               </li>
             ))}
           </ul>
-          {benefitsNote && <p className={styles.benefitsNote}>{benefitsNote}</p>}
+          {benefitsNote && <p className="licensing-benefits-note">{benefitsNote}</p>}
         </div>
       </div>
     </Section>

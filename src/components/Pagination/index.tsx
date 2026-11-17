@@ -1,101 +1,85 @@
 'use client'
-import {
-  Pagination as PaginationComponent,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination'
 import { cn } from '@/utilities/ui'
+import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
 export const Pagination: React.FC<{
+  basePath?: string
   className?: string
   page: number
+  query?: Record<string, string>
   totalPages: number
 }> = (props) => {
   const router = useRouter()
 
-  const { className, page, totalPages } = props
+  const { basePath = '/news/page', className, page, query, totalPages } = props
   const hasNextPage = page < totalPages
   const hasPrevPage = page > 1
 
   const hasExtraPrevPages = page - 1 > 1
   const hasExtraNextPages = page + 1 < totalPages
 
+  const goTo = (target: number) => {
+    if (query) {
+      const params = new URLSearchParams(query)
+      if (target > 1) params.set('page', String(target))
+      const search = params.toString()
+      router.push(`${basePath}${search ? `?${search}` : ''}`)
+      return
+    }
+    router.push(`${basePath}/${target}`)
+  }
+
   return (
-    <div className={cn('my-12', className)}>
-      <PaginationComponent>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              disabled={!hasPrevPage}
-              onClick={() => {
-                router.push(`/posts/page/${page - 1}`)
-              }}
-            />
-          </PaginationItem>
+    <nav aria-label="Pagination" className={cn('archive-pagination', className)}>
+      <button
+        className="archive-pagination-edge"
+        disabled={!hasPrevPage}
+        onClick={() => goTo(page - 1)}
+        type="button"
+      >
+        <ChevronLeft aria-hidden="true" className="archive-pagination-icon" /> <span>Previous</span>
+      </button>
 
-          {hasExtraPrevPages && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
+      <div className="archive-pagination-pages">
+        {hasExtraPrevPages && (
+          <span className="archive-pagination-ellipsis" aria-hidden="true">
+            <MoreHorizontal className="archive-pagination-icon" />
+          </span>
+        )}
 
-          {hasPrevPage && (
-            <PaginationItem>
-              <PaginationLink
-                onClick={() => {
-                  router.push(`/posts/page/${page - 1}`)
-                }}
-              >
-                {page - 1}
-              </PaginationLink>
-            </PaginationItem>
-          )}
+        {hasPrevPage && (
+          <button className="archive-pagination-page" onClick={() => goTo(page - 1)} type="button">
+            {page - 1}
+          </button>
+        )}
 
-          <PaginationItem>
-            <PaginationLink
-              isActive
-              onClick={() => {
-                router.push(`/posts/page/${page}`)
-              }}
-            >
-              {page}
-            </PaginationLink>
-          </PaginationItem>
+        <button aria-current="page" className="archive-pagination-page archive-pagination-page-active" type="button">
+          {page}
+        </button>
 
-          {hasNextPage && (
-            <PaginationItem>
-              <PaginationLink
-                onClick={() => {
-                  router.push(`/posts/page/${page + 1}`)
-                }}
-              >
-                {page + 1}
-              </PaginationLink>
-            </PaginationItem>
-          )}
+        {hasNextPage && (
+          <button className="archive-pagination-page" onClick={() => goTo(page + 1)} type="button">
+            {page + 1}
+          </button>
+        )}
 
-          {hasExtraNextPages && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
+        {hasExtraNextPages && (
+          <span className="archive-pagination-ellipsis" aria-hidden="true">
+            <MoreHorizontal className="archive-pagination-icon" />
+          </span>
+        )}
+      </div>
 
-          <PaginationItem>
-            <PaginationNext
-              disabled={!hasNextPage}
-              onClick={() => {
-                router.push(`/posts/page/${page + 1}`)
-              }}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </PaginationComponent>
-    </div>
+      <button
+        className="archive-pagination-edge"
+        disabled={!hasNextPage}
+        onClick={() => goTo(page + 1)}
+        type="button"
+      >
+        <span>Next</span> <ChevronRight aria-hidden="true" className="archive-pagination-icon" />
+      </button>
+    </nav>
   )
 }
