@@ -44,6 +44,17 @@ const nextConfig: NextConfig = {
 
     return webpackConfig
   },
+  async headers() {
+    if (process.env.ALLOW_INDEXING === 'true') return []
+
+    // Blocks search engines site-wide (test/staging). Set ALLOW_INDEXING=true on the live deploy.
+    return [
+      {
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet' }],
+        source: '/:path*',
+      },
+    ]
+  },
   reactStrictMode: true,
   redirects,
   experimental: {

@@ -53,9 +53,23 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   )
 }
 
+/**
+ * Blocks search engines by default (test server, staging, any deploy that isn't the public
+ * live site). Set ALLOW_INDEXING=true in that one environment's env vars once it goes live.
+ */
+const allowIndexing = process.env.ALLOW_INDEXING === 'true'
+
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
   openGraph: mergeOpenGraph(),
+  robots: allowIndexing
+    ? undefined
+    : {
+        follow: false,
+        googleBot: { follow: false, index: false, noimageindex: true },
+        index: false,
+        nocache: true,
+      },
   twitter: {
     card: 'summary_large_image',
     creator: '@payloadcms',
