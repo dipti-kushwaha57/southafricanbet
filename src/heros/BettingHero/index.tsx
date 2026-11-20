@@ -1,5 +1,6 @@
 import configPromise from '@payload-config'
 import { Gift, ShieldCheck, Sparkles, Trophy } from 'lucide-react'
+import Link from 'next/link'
 import { getPayload } from 'payload'
 import React from 'react'
 
@@ -8,6 +9,7 @@ import type { Page } from '@/payload-types'
 import { ReviewsBlockComponent } from '@/blocks/ReviewsBlock/Component'
 import { SiteLink } from '@/components/Link/SiteLink'
 import { cn } from '@/utilities/ui'
+import { reviewHref } from '@/utilities/reviewHref'
 
 /** Plain text of every paragraph in a Lexical state (the hero intro is a single <p>). */
 const paragraphsOf = (richText: Page['hero']['richText']): string[] => {
@@ -23,26 +25,36 @@ const ICONS = { gift: Gift, trophy: Trophy } as const
 /** Scrolling strip of every bookmaker's welcome offer (the list is doubled for a seamless loop). */
 const OfferTicker: React.FC = async () => {
   const payload = await getPayload({ config: configPromise })
-  const { docs } = await payload.find({
+  const { docs: found } = await payload.find({
     collection: 'reviews',
     depth: 0,
     limit: 20,
     pagination: false,
-    select: { bonusText: true, title: true },
+    select: { bonusText: true, slug: true, title: true },
     sort: 'rank',
   })
+  const docs = found.filter((review) => review.title && review.slug)
 
   if (!docs.length) return null
 
   return (
     <div className="hero-ticker">
       <div className={cn('animate-marquee', 'hero-ticker-track')}>
-        {[...docs, ...docs].map((review, i) => (
-          <span className="hero-ticker-item" key={i}>
-            <Sparkles aria-hidden="true" className="hero-ticker-icon" /> {review.title}:{' '}
-            <span className="hero-ticker-offer">{review.bonusText}</span>
-          </span>
-        ))}
+        {[...docs, ...docs].map((review, i) => {
+          const clone = i >= docs.length
+          return (
+            <Link
+              aria-hidden={clone || undefined}
+              className="hero-ticker-item"
+              href={reviewHref(review.slug)}
+              key={i}
+              tabIndex={clone ? -1 : undefined}
+            >
+              <Sparkles aria-hidden="true" className="hero-ticker-icon" /> {review.title}:{' '}
+              <span className="hero-ticker-offer">{review.bonusText}</span>
+            </Link>
+          )
+        })}
       </div>
     </div>
   )

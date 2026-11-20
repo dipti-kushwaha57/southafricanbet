@@ -11,6 +11,7 @@ import {
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+import { ALL_SECTION_BLOCKS } from '../../blocks/allBlocks'
 import { Banner } from '../../blocks/Banner/config'
 import { Code } from '../../blocks/Code/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
@@ -47,6 +48,8 @@ export const Reviews: CollectionConfig<'reviews'> = {
     rating: true,
     rank: true,
     icon: true,
+    brandColor: true,
+    playNowUrl: true,
     bonusText: true,
     meta: {
       image: true,
@@ -155,6 +158,15 @@ export const Reviews: CollectionConfig<'reviews'> = {
               ],
             },
             {
+              name: 'playNowUrl',
+              type: 'text',
+              admin: {
+                description:
+                  'Affiliate / "Play Now" link. Every Play Now and Claim Bonus button on this review page uses this one link.',
+              },
+              label: 'Play Now link',
+            },
+            {
               name: 'features',
               type: 'array',
               fields: [
@@ -253,7 +265,6 @@ export const Reviews: CollectionConfig<'reviews'> = {
                 },
               }),
               label: 'Full Review',
-              required: true,
             },
             {
               name: 'termsConditions',
@@ -262,6 +273,54 @@ export const Reviews: CollectionConfig<'reviews'> = {
             },
           ],
           label: 'Content',
+        },
+        {
+          fields: [
+            {
+              name: 'pageHero',
+              type: 'group',
+              admin: {
+                description:
+                  'Top of the review page. Logo, rating, bonus headline, Play Now link and payment methods come from the Content tab.',
+              },
+              fields: [
+                { name: 'licenceBadge', type: 'text', label: 'Badge above the title (e.g. Licensed in South Africa)' },
+                { name: 'titleSuffix', type: 'text', label: 'Gradient word after "Review" (e.g. 2026)' },
+                { name: 'summary', type: 'textarea', label: 'Intro paragraph' },
+                { name: 'author', type: 'text', defaultValue: 'SouthAfricanBet Review Team', label: 'Reviewed by' },
+                { name: 'scoreLabel', type: 'text', defaultValue: 'Excellent', label: 'Score word (e.g. Excellent)' },
+                { name: 'rankText', type: 'text', label: 'Ranking line (leave empty to use the Rank)' },
+                { name: 'offerLabel', type: 'text', defaultValue: 'Exclusive welcome offer', label: 'Offer card label' },
+                { name: 'bonusSubtext', type: 'text', label: 'Line under the bonus headline' },
+                { name: 'bonusFinePrint', type: 'text', label: 'Small print under the button' },
+                { name: 'ctaLabel', type: 'text', defaultValue: 'Claim bonus', label: 'Offer button label' },
+                {
+                  name: 'stats',
+                  type: 'array',
+                  admin: { description: 'Stat strip under the hero (e.g. Established, Sports covered).' },
+                  fields: [
+                    { name: 'label', type: 'text', required: true },
+                    { name: 'value', type: 'text', required: true },
+                  ],
+                  maxRows: 8,
+                },
+              ],
+              label: 'Page Hero',
+            },
+          ],
+          label: 'Page Hero',
+        },
+        {
+          fields: [
+            {
+              name: 'layout',
+              type: 'blocks',
+              admin: { initCollapsed: true },
+              blocks: ALL_SECTION_BLOCKS,
+              label: 'Page Sections',
+            },
+          ],
+          label: 'Page Sections',
         },
         {
           fields: [

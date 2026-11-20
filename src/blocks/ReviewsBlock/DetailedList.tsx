@@ -1,5 +1,5 @@
 import { ArrowRight, Star, Trophy } from 'lucide-react'
-// import Link from 'next/link' // demo: re-enable once /reviews/[slug] exists
+import Link from 'next/link'
 import React from 'react'
 
 import type { Review } from '@/payload-types'
@@ -7,7 +7,7 @@ import type { Review } from '@/payload-types'
 import { BookmakerLogo } from '@/components/BookmakerLogo'
 import { PaymentsSlider } from '@/components/PaymentsSlider'
 import { cn } from '@/utilities/ui'
-// import { reviewHref } from '@/utilities/reviewHref' // demo: re-enable once /reviews/[slug] exists
+import { reviewHref } from '@/utilities/reviewHref'
 
 const StarRating: React.FC<{ rating: number }> = ({ rating }) => (
   <span aria-label={`${rating} out of 5`} className="detailed-list-stars-wrap">
@@ -39,7 +39,9 @@ export const DetailedList: React.FC<{ reviews: Review[] }> = ({ reviews }) => (
             <div className="detailed-list-profile-col">
               <BookmakerLogo className="detailed-list-logo" review={review} />
               <div>
-                <h3 className="detailed-list-title">{review.title}</h3>
+                <h3 className="detailed-list-title">
+                  <Link href={reviewHref(review.slug)}>{review.title}</Link>
+                </h3>
                 <div className="detailed-list-rating-row">
                   <span className="detailed-list-rating-number">{review.rating.toFixed(1)}</span>
                   <StarRating rating={review.rating} />
@@ -58,18 +60,12 @@ export const DetailedList: React.FC<{ reviews: Review[] }> = ({ reviews }) => (
             </div>
 
             <div className="detailed-list-cta-col">
-              {/* Demo: review page isn't built yet — links disabled for now, restore when it exists.
               <Link className={cn('btn-primary', 'btn-flex-1', 'btn-size-responsive')} href={reviewHref(review.slug)}>
                 Play Now
               </Link>
               <Link className="detailed-list-read-review-button" href={reviewHref(review.slug)}>
                 Read Review <ArrowRight aria-hidden="true" className="detailed-list-read-review-icon" />
               </Link>
-              */}
-              <span className={cn('btn-primary', 'btn-flex-1', 'btn-size-responsive')}>Play Now</span>
-              <span className="detailed-list-read-review-button">
-                Read Review <ArrowRight aria-hidden="true" className="detailed-list-read-review-icon" />
-              </span>
             </div>
           </div>
 

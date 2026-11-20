@@ -1,13 +1,13 @@
 'use client'
 import { BadgeCheck, Check, ChevronDown, Copy, Star } from 'lucide-react'
-// import Link from 'next/link' // demo: re-enable once /reviews/[slug] exists
+import Link from 'next/link'
 import React, { useState } from 'react'
 
 import type { Review } from '@/payload-types'
 
 import { BookmakerLogo } from '@/components/BookmakerLogo'
 import { cn } from '@/utilities/ui'
-// import { reviewHref } from '@/utilities/reviewHref' // demo: re-enable once /reviews/[slug] exists
+import { reviewHref } from '@/utilities/reviewHref'
 
 const PromoCode: React.FC<{ code: string }> = ({ code }) => {
   const [copied, setCopied] = useState(false)
@@ -72,12 +72,7 @@ export const CardGrid: React.FC<{ initialVisible?: number | null; reviews: Revie
                 <BookmakerLogo className="card-grid-logo" review={review} />
                 <div>
                   <h3 className="card-grid-title">
-                    {/* Demo: review page isn't built yet — link disabled for now, restore when it exists.
-                    <Link className="hover:text-primary" href={reviewHref(review.slug)}>
-                      {review.title}
-                    </Link>
-                    */}
-                    {review.title}
+                    <Link href={reviewHref(review.slug)}>{review.title}</Link>
                   </h3>
                   <span className="card-grid-rating-row">
                     <Star aria-hidden="true" className="card-grid-star-icon" />
@@ -126,16 +121,12 @@ export const CardGrid: React.FC<{ initialVisible?: number | null; reviews: Revie
               </dl>
 
               <div className="card-grid-cta-row">
-                {/* Demo: review page isn't built yet — links disabled for now, restore when it exists.
                 <Link className={cn('btn-primary', 'btn-flex-1')} href={reviewHref(review.slug)}>
                   Play Now
                 </Link>
                 <Link className="btn-outline-small" href={reviewHref(review.slug)}>
                   Review
                 </Link>
-                */}
-                <span className={cn('btn-primary', 'btn-flex-1')}>Play Now</span>
-                <span className="btn-outline-small">Review</span>
               </div>
               <p className="card-grid-disclaimer">18+ Only | Play Responsibly</p>
             </article>

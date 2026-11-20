@@ -1,4 +1,4 @@
-import { ArrowRight, BadgeCheck } from 'lucide-react'
+import { ArrowRight, BadgeCheck, ShieldCheck } from 'lucide-react'
 import React from 'react'
 
 import type { FeatureGridBlock as FeatureGridProps } from '@/payload-types'
@@ -6,6 +6,7 @@ import type { FeatureGridBlock as FeatureGridProps } from '@/payload-types'
 import { CmsImg } from '@/components/CmsImg'
 import { SiteLink } from '@/components/Link/SiteLink'
 import { Section } from '@/components/Section'
+import { ReviewIcon } from '@/components/review/ReviewIcon'
 
 type Items = FeatureGridProps['items']
 
@@ -27,16 +28,32 @@ const Steps: React.FC<{ callout?: string | null; items: Items }> = ({ callout, i
   </div>
 )
 
-const Criteria: React.FC<{ items: Items }> = ({ items }) => (
-  <div className="feature-grid-criteria-grid">
-    {items.map((item, i) => (
-      <div className="feature-grid-criteria-card" key={item.id ?? i}>
-        <span className="feature-grid-criteria-number">{i + 1}</span>
-        <h3 className="feature-grid-criteria-title">{item.title}</h3>
-        {item.description && <p className="feature-grid-criteria-description">{item.description}</p>}
+const Criteria: React.FC<{ callout?: string | null; calloutLead?: string | null; items: Items }> = ({
+  callout,
+  calloutLead,
+  items,
+}) => (
+  <>
+    {callout && (
+      <div className="feature-grid-criteria-callout">
+        <span className="feature-grid-criteria-callout-icon">
+          <ShieldCheck aria-hidden="true" />
+        </span>
+        <p>
+          {calloutLead && <b>{calloutLead}</b>} {callout}
+        </p>
       </div>
-    ))}
-  </div>
+    )}
+    <div className="feature-grid-criteria-grid">
+      {items.map((item, i) => (
+        <div className="feature-grid-criteria-card" key={item.id ?? i}>
+          <span className="feature-grid-criteria-number">{i + 1}</span>
+          <h3 className="feature-grid-criteria-title">{item.title}</h3>
+          {item.description && <p className="feature-grid-criteria-description">{item.description}</p>}
+        </div>
+      ))}
+    </div>
+  </>
 )
 
 const Sports: React.FC<{ items: Items }> = ({ items }) => (
@@ -65,7 +82,13 @@ const Trust: React.FC<{ block: FeatureGridProps }> = ({ block }) => (
     <div className="feature-grid-trust-grid">
       {block.items.map((item, i) => (
         <div className="feature-grid-trust-card" key={item.id ?? i}>
-          <BadgeCheck aria-hidden="true" className="feature-grid-trust-icon" />
+          <span className="feature-grid-trust-icon-circle">
+            {item.trustIcon ? (
+              <ReviewIcon className="feature-grid-trust-icon" name={item.trustIcon} />
+            ) : (
+              <BadgeCheck aria-hidden="true" className="feature-grid-trust-icon" />
+            )}
+          </span>
           <h3 className="feature-grid-trust-title">{item.title}</h3>
           {item.description && <p className="feature-grid-trust-description">{item.description}</p>}
         </div>
@@ -89,7 +112,7 @@ const Trust: React.FC<{ block: FeatureGridProps }> = ({ block }) => (
 )
 
 export const FeatureGridBlock: React.FC<FeatureGridProps & { id?: string }> = (props) => {
-  const { anchorId, callout, eyebrow, heading, headingHighlight, intro, items, tinted, variant } = props
+  const { anchorId, callout, calloutLead, eyebrow, heading, headingHighlight, intro, items, tinted, variant } = props
 
   return (
     <Section
@@ -101,7 +124,7 @@ export const FeatureGridBlock: React.FC<FeatureGridProps & { id?: string }> = (p
       tinted={tinted}
     >
       {variant === 'criteria' ? (
-        <Criteria items={items} />
+        <Criteria callout={callout} calloutLead={calloutLead} items={items} />
       ) : variant === 'sports' ? (
         <Sports items={items} />
       ) : variant === 'trust' ? (

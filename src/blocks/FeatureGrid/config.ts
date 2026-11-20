@@ -2,6 +2,7 @@ import type { Block } from 'payload'
 
 import { link } from '@/fields/link'
 import { sectionFields } from '@/fields/sectionFields'
+import { REVIEW_ICON_OPTIONS } from '../review/icons'
 
 export const FeatureGrid: Block = {
   slug: 'featureGrid',
@@ -47,6 +48,15 @@ export const FeatureGrid: Block = {
           relationTo: 'media',
         },
         {
+          name: 'trustIcon',
+          type: 'select',
+          admin: {
+            condition: (data) => data?.variant === 'trust',
+            description: 'Trust variant only — icon shown in the colored circle.',
+          },
+          options: REVIEW_ICON_OPTIONS,
+        },
+        {
           name: 'tip',
           type: 'text',
           admin: {
@@ -60,11 +70,19 @@ export const FeatureGrid: Block = {
       required: true,
     },
     {
+      name: 'calloutLead',
+      type: 'text',
+      admin: {
+        condition: (_, siblingData) => siblingData?.variant === 'criteria',
+        description: 'Criteria variant only: bold lead-in before the callout text, e.g. "Fully independent."',
+      },
+    },
+    {
       name: 'callout',
       type: 'textarea',
       admin: {
-        condition: (_, siblingData) => siblingData?.variant === 'steps',
-        description: 'Gradient "Tip" card shown after the last step.',
+        condition: (_, siblingData) => ['steps', 'criteria'].includes(siblingData?.variant),
+        description: 'Steps: gradient "Tip" card shown after the last step. Criteria: icon + text callout shown after the grid.',
       },
       label: 'Tip card text',
     },

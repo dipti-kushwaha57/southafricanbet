@@ -161,7 +161,8 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'bettingHero';
+    type:
+      'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'bettingHero' | 'contactHero' | 'aboutHero' | 'legalHero';
     /**
      * Small pill above the heading, e.g. "Licensed by SA provincial boards"
      */
@@ -251,6 +252,157 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
+    /**
+     * Contact Hero only: small status pill above the response time, e.g. "Team replying today".
+     */
+    responseStatus?: string | null;
+    /**
+     * Contact Hero only: big stat on the response card, e.g. "Within 24 hrs".
+     */
+    responseTime?: string | null;
+    /**
+     * Contact Hero only: small note under the response time, e.g. "Monday to Friday".
+     */
+    responseNote?: string | null;
+    /**
+     * Contact Hero only: up to 3 small stat tiles (e.g. SA Time / Team / Based In).
+     */
+    stats?:
+      | {
+          label: string;
+          value: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Contact Hero only: short alert text at the bottom of the response card.
+     */
+    helpNote?: string | null;
+    /**
+     * About Hero only: icon on the mission card.
+     */
+    missionIcon?:
+      | (
+          | 'shield'
+          | 'trophy'
+          | 'wallet'
+          | 'gift'
+          | 'gamepad'
+          | 'smartphone'
+          | 'headphones'
+          | 'star'
+          | 'lock'
+          | 'timer'
+          | 'ban'
+          | 'idCard'
+          | 'zap'
+          | 'info'
+          | 'lifebuoy'
+          | 'mail'
+          | 'phone'
+          | 'languages'
+          | 'message'
+          | 'monitor'
+          | 'sparkles'
+          | 'scale'
+          | 'userPlus'
+          | 'listChecks'
+          | 'users'
+          | 'trendingUp'
+          | 'clock'
+          | 'calculator'
+          | 'globe'
+          | 'percent'
+          | 'banknote'
+          | 'creditCard'
+          | 'tv'
+          | 'check'
+          | 'megaphone'
+          | 'pencil'
+          | 'mapPin'
+          | 'fileText'
+          | 'externalLink'
+          | 'triangleAlert'
+          | 'piggyBank'
+          | 'search'
+        )
+      | null;
+    /**
+     * About Hero only: small label above the mission quote, e.g. "Our mission".
+     */
+    missionEyebrow?: string | null;
+    /**
+     * About Hero only: the big quote text on the mission card.
+     */
+    missionQuote?: string | null;
+    /**
+     * About Hero only: small caption under the mission quote.
+     */
+    missionCaption?: string | null;
+    /**
+     * About/Legal Hero only: up to 4 small tiles under the hero (e.g. "100% South African / Local market focus").
+     */
+    miniStats?:
+      | {
+          icon?:
+            | (
+                | 'shield'
+                | 'trophy'
+                | 'wallet'
+                | 'gift'
+                | 'gamepad'
+                | 'smartphone'
+                | 'headphones'
+                | 'star'
+                | 'lock'
+                | 'timer'
+                | 'ban'
+                | 'idCard'
+                | 'zap'
+                | 'info'
+                | 'lifebuoy'
+                | 'mail'
+                | 'phone'
+                | 'languages'
+                | 'message'
+                | 'monitor'
+                | 'sparkles'
+                | 'scale'
+                | 'userPlus'
+                | 'listChecks'
+                | 'users'
+                | 'trendingUp'
+                | 'clock'
+                | 'calculator'
+                | 'globe'
+                | 'percent'
+                | 'banknote'
+                | 'creditCard'
+                | 'tv'
+                | 'check'
+                | 'megaphone'
+                | 'pencil'
+                | 'mapPin'
+                | 'fileText'
+                | 'externalLink'
+                | 'triangleAlert'
+                | 'piggyBank'
+                | 'search'
+              )
+            | null;
+          title: string;
+          subtitle?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Legal Hero only: e.g. "Last updated: 20 November 2026".
+     */
+    updatedLabel?: string | null;
+    /**
+     * Legal Hero only: e.g. "8 sections · about 3 min read".
+     */
+    readInfo?: string | null;
     media?: (number | null) | Media;
   };
   layout: (
@@ -259,11 +411,30 @@ export interface Page {
     | MediaBlock
     | ArchiveBlock
     | FormBlock
+    | FlexibleColumnsBlock
     | ReviewsBlock
     | PostsBlock
     | FeatureGridBlock
     | LicensingBlock
     | FaqBlock
+    | TeamSpotlightBlock
+    | LegalSectionsBlock
+    | ReviewScoreboardBlock
+    | ReviewFactGridBlock
+    | ReviewProsConsBlock
+    | ReviewSplitBlock
+    | ReviewBonusBlock
+    | ReviewBoostBlock
+    | ReviewCardsBlock
+    | ReviewSpotlightBlock
+    | ReviewStepsBlock
+    | ReviewTabsGalleryBlock
+    | ReviewShowcaseBlock
+    | ReviewOddsTableBlock
+    | ReviewPaymentsBlock
+    | ReviewCompareBlock
+    | ReviewVerdictBlock
+    | ReviewFaqBlock
   )[];
   meta?: {
     title?: string | null;
@@ -525,6 +696,10 @@ export interface Review {
   whyWeLoveIt?: string | null;
   bonusText: string;
   promotionalCode?: string | null;
+  /**
+   * Affiliate / "Play Now" link. Every Play Now and Claim Bonus button on this review page uses this one link.
+   */
+  playNowUrl?: string | null;
   features?:
     | {
         text: string;
@@ -548,7 +723,7 @@ export interface Review {
         id?: string | null;
       }[]
     | null;
-  content: {
+  content?: {
     root: {
       type: string;
       children: {
@@ -562,8 +737,66 @@ export interface Review {
       version: number;
     };
     [k: string]: unknown;
-  };
+  } | null;
   termsConditions?: string | null;
+  /**
+   * Top of the review page. Logo, rating, bonus headline, Play Now link and payment methods come from the Content tab.
+   */
+  pageHero?: {
+    licenceBadge?: string | null;
+    titleSuffix?: string | null;
+    summary?: string | null;
+    author?: string | null;
+    scoreLabel?: string | null;
+    rankText?: string | null;
+    offerLabel?: string | null;
+    bonusSubtext?: string | null;
+    bonusFinePrint?: string | null;
+    ctaLabel?: string | null;
+    /**
+     * Stat strip under the hero (e.g. Established, Sports covered).
+     */
+    stats?:
+      | {
+          label: string;
+          value: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  layout?:
+    | (
+        | CallToActionBlock
+        | ContentBlock
+        | MediaBlock
+        | ArchiveBlock
+        | FormBlock
+        | FlexibleColumnsBlock
+        | ReviewsBlock
+        | PostsBlock
+        | FeatureGridBlock
+        | LicensingBlock
+        | FaqBlock
+        | TeamSpotlightBlock
+        | LegalSectionsBlock
+        | ReviewScoreboardBlock
+        | ReviewFactGridBlock
+        | ReviewProsConsBlock
+        | ReviewSplitBlock
+        | ReviewBonusBlock
+        | ReviewBoostBlock
+        | ReviewCardsBlock
+        | ReviewSpotlightBlock
+        | ReviewStepsBlock
+        | ReviewTabsGalleryBlock
+        | ReviewShowcaseBlock
+        | ReviewOddsTableBlock
+        | ReviewPaymentsBlock
+        | ReviewCompareBlock
+        | ReviewVerdictBlock
+        | ReviewFaqBlock
+      )[]
+    | null;
   relatedReviews?: (number | Review)[] | null;
   categories?: (number | Category)[] | null;
   meta?: {
@@ -755,6 +988,10 @@ export interface ArchiveBlock {
  * via the `definition` "FormBlock".
  */
 export interface FormBlock {
+  /**
+   * In-page anchor used by menu links, e.g. "form" for /#form.
+   */
+  anchorId?: string | null;
   form: number | Form;
   enableIntro?: boolean | null;
   introContent?: {
@@ -772,6 +1009,26 @@ export interface FormBlock {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Optional panel shown beside the form (please-note callout, support email, social links, gambling helpline).
+   */
+  sidebar?: {
+    noteTitle?: string | null;
+    noteText?: string | null;
+    noteLinkLabel?: string | null;
+    noteLinkUrl?: string | null;
+    supportTitle?: string | null;
+    supportEmail?: string | null;
+    supportNote?: string | null;
+    /**
+     * Show the site's social links (from the Footer global).
+     */
+    showSocial?: boolean | null;
+    /**
+     * Show the responsible-gambling helpline (from the Footer global).
+     */
+    showGamblingHelp?: boolean | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'formBlock';
@@ -943,6 +1200,179 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FlexibleColumnsBlock".
+ */
+export interface FlexibleColumnsBlock {
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  cols?:
+    | {
+        width: 'full' | 'half' | 'third' | 'twoThirds' | 'quarter';
+        /**
+         * Force plain (non-card) styling even on a half/third/quarter column.
+         */
+        noCard?: boolean | null;
+        /**
+         * Tint the card with a soft success-green background and border (e.g. for responsible-gambling content).
+         */
+        tintCard?: boolean | null;
+        /**
+         * Give the card a soft pink-to-gold gradient background (e.g. for a "what we check" checklist card).
+         */
+        gradientCard?: boolean | null;
+        items?:
+          | {
+              type:
+                | 'sectionHeading'
+                | 'title'
+                | 'text'
+                | 'image'
+                | 'button'
+                | 'quickFact'
+                | 'accordion'
+                | 'emailChip'
+                | 'checklistItem'
+                | 'helpCard'
+                | 'socialRow';
+              /**
+               * Small label above the heading, e.g. "Who we are".
+               */
+              eyebrowText?: string | null;
+              /**
+               * For "Section heading", this is the big heading text.
+               */
+              title?: string | null;
+              /**
+               * Optional: shows a colored icon circle above the title instead of the inline checkmark.
+               */
+              icon?:
+                | (
+                    | 'shield'
+                    | 'trophy'
+                    | 'wallet'
+                    | 'gift'
+                    | 'gamepad'
+                    | 'smartphone'
+                    | 'headphones'
+                    | 'star'
+                    | 'lock'
+                    | 'timer'
+                    | 'ban'
+                    | 'idCard'
+                    | 'zap'
+                    | 'info'
+                    | 'lifebuoy'
+                    | 'mail'
+                    | 'phone'
+                    | 'languages'
+                    | 'message'
+                    | 'monitor'
+                    | 'sparkles'
+                    | 'scale'
+                    | 'userPlus'
+                    | 'listChecks'
+                    | 'users'
+                    | 'trendingUp'
+                    | 'clock'
+                    | 'calculator'
+                    | 'globe'
+                    | 'percent'
+                    | 'banknote'
+                    | 'creditCard'
+                    | 'tv'
+                    | 'check'
+                    | 'megaphone'
+                    | 'pencil'
+                    | 'mapPin'
+                    | 'fileText'
+                    | 'externalLink'
+                    | 'triangleAlert'
+                    | 'piggyBank'
+                    | 'search'
+                  )
+                | null;
+              /**
+               * Show the icon small and inline before the title (e.g. a card header), instead of as a circle above it.
+               */
+              inlineIcon?: boolean | null;
+              text?: string | null;
+              image?: (number | null) | Media;
+              btn?: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: number | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: number | Post;
+                    } | null)
+                  | ({
+                      relationTo: 'reviews';
+                      value: number | Review;
+                    } | null);
+                url?: string | null;
+                label: string;
+                /**
+                 * Optional icon rendered next to the label (not embedded in the text).
+                 */
+                icon?:
+                  | (
+                      | ''
+                      | 'home'
+                      | 'trophy'
+                      | 'sports'
+                      | 'gift'
+                      | 'star'
+                      | 'shield'
+                      | 'help'
+                      | 'search'
+                      | 'clock'
+                      | 'warning'
+                    )
+                  | null;
+              };
+              statValue?: string | null;
+              statLabel?: string | null;
+              email?: string | null;
+              /**
+               * In-page anchor for the "Or use the form" link, e.g. "#form".
+               */
+              formAnchor?: string | null;
+              accordionItems?:
+                | {
+                    question: string;
+                    answer: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'flexCols';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ReviewsBlock".
  */
 export interface ReviewsBlock {
@@ -1086,13 +1516,66 @@ export interface FeatureGridBlock {
      */
     icon?: (number | null) | Media;
     /**
+     * Trust variant only — icon shown in the colored circle.
+     */
+    trustIcon?:
+      | (
+          | 'shield'
+          | 'trophy'
+          | 'wallet'
+          | 'gift'
+          | 'gamepad'
+          | 'smartphone'
+          | 'headphones'
+          | 'star'
+          | 'lock'
+          | 'timer'
+          | 'ban'
+          | 'idCard'
+          | 'zap'
+          | 'info'
+          | 'lifebuoy'
+          | 'mail'
+          | 'phone'
+          | 'languages'
+          | 'message'
+          | 'monitor'
+          | 'sparkles'
+          | 'scale'
+          | 'userPlus'
+          | 'listChecks'
+          | 'users'
+          | 'trendingUp'
+          | 'clock'
+          | 'calculator'
+          | 'globe'
+          | 'percent'
+          | 'banknote'
+          | 'creditCard'
+          | 'tv'
+          | 'check'
+          | 'megaphone'
+          | 'pencil'
+          | 'mapPin'
+          | 'fileText'
+          | 'externalLink'
+          | 'triangleAlert'
+          | 'piggyBank'
+          | 'search'
+        )
+      | null;
+    /**
      * Sports variant only: the "Pro Tip" text.
      */
     tip?: string | null;
     id?: string | null;
   }[];
   /**
-   * Gradient "Tip" card shown after the last step.
+   * Criteria variant only: bold lead-in before the callout text, e.g. "Fully independent."
+   */
+  calloutLead?: string | null;
+  /**
+   * Steps: gradient "Tip" card shown after the last step. Criteria: icon + text callout shown after the grid.
    */
   callout?: string | null;
   quote?: string | null;
@@ -1255,6 +1738,2114 @@ export interface FaqBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'faqBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamSpotlightBlock".
+ */
+export interface TeamSpotlightBlock {
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  initials?: string | null;
+  name: string;
+  role?: string | null;
+  verifiedLabel?: string | null;
+  /**
+   * Bold lead-in words at the start of the bio, e.g. "Dennis brings".
+   */
+  bioLead?: string | null;
+  /**
+   * Bold phrase right after the lead-in, e.g. "over a decade of hands-on experience".
+   */
+  bioBold?: string | null;
+  bioRest?: string | null;
+  tags?:
+    | {
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  authorLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null)
+      | ({
+          relationTo: 'reviews';
+          value: number | Review;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Optional icon rendered next to the label (not embedded in the text).
+     */
+    icon?:
+      ('' | 'home' | 'trophy' | 'sports' | 'gift' | 'star' | 'shield' | 'help' | 'search' | 'clock' | 'warning') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'teamSpotlight';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LegalSectionsBlock".
+ */
+export interface LegalSectionsBlock {
+  sections: {
+    icon?:
+      | (
+          | 'shield'
+          | 'trophy'
+          | 'wallet'
+          | 'gift'
+          | 'gamepad'
+          | 'smartphone'
+          | 'headphones'
+          | 'star'
+          | 'lock'
+          | 'timer'
+          | 'ban'
+          | 'idCard'
+          | 'zap'
+          | 'info'
+          | 'lifebuoy'
+          | 'mail'
+          | 'phone'
+          | 'languages'
+          | 'message'
+          | 'monitor'
+          | 'sparkles'
+          | 'scale'
+          | 'userPlus'
+          | 'listChecks'
+          | 'users'
+          | 'trendingUp'
+          | 'clock'
+          | 'calculator'
+          | 'globe'
+          | 'percent'
+          | 'banknote'
+          | 'creditCard'
+          | 'tv'
+          | 'check'
+          | 'megaphone'
+          | 'pencil'
+          | 'mapPin'
+          | 'fileText'
+          | 'externalLink'
+          | 'triangleAlert'
+          | 'piggyBank'
+          | 'search'
+        )
+      | null;
+    heading: string;
+    /**
+     * Bullet points for this section (leave empty to use plain text below instead).
+     */
+    points?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Plain paragraph text, used when no bullet points are set above.
+     */
+    text?: string | null;
+    /**
+     * Optional green helpline callout inside this section (e.g. the NRGP helpline).
+     */
+    helpline?: {
+      title?: string | null;
+      subtitle?: string | null;
+      value?: string | null;
+      linkLabel?: string | null;
+      linkUrl?: string | null;
+    };
+    /**
+     * Optional email/website chip row for a "Contact us" section.
+     */
+    contact?: {
+      email?: string | null;
+      website?: string | null;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'legalSections';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewScoreboardBlock".
+ */
+export interface ReviewScoreboardBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  /**
+   * Short line under the overall score. The score and stars come from the review rating.
+   */
+  summary?: string | null;
+  /**
+   * Small stat tiles under the score (e.g. Active SA players).
+   */
+  stats?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  testedLabel?: string | null;
+  categories?:
+    | {
+        icon?:
+          | (
+              | 'shield'
+              | 'trophy'
+              | 'wallet'
+              | 'gift'
+              | 'gamepad'
+              | 'smartphone'
+              | 'headphones'
+              | 'star'
+              | 'lock'
+              | 'timer'
+              | 'ban'
+              | 'idCard'
+              | 'zap'
+              | 'info'
+              | 'lifebuoy'
+              | 'mail'
+              | 'phone'
+              | 'languages'
+              | 'message'
+              | 'monitor'
+              | 'sparkles'
+              | 'scale'
+              | 'userPlus'
+              | 'listChecks'
+              | 'users'
+              | 'trendingUp'
+              | 'clock'
+              | 'calculator'
+              | 'globe'
+              | 'percent'
+              | 'banknote'
+              | 'creditCard'
+              | 'tv'
+              | 'check'
+              | 'megaphone'
+              | 'pencil'
+              | 'mapPin'
+              | 'fileText'
+              | 'externalLink'
+              | 'triangleAlert'
+              | 'piggyBank'
+              | 'search'
+            )
+          | null;
+        title: string;
+        description?: string | null;
+        score: number;
+        id?: string | null;
+      }[]
+    | null;
+  highlightsHeading?: string | null;
+  highlights?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewScoreboard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewFactGridBlock".
+ */
+export interface ReviewFactGridBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  /**
+   * Columns on desktop. Phones always show one column.
+   */
+  columns?: ('1' | '2' | '3' | '4') | null;
+  facts?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Adds a row with this review's payment method logos.
+   */
+  showPaymentMethods?: boolean | null;
+  paymentsLabel?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewFactGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewProsConsBlock".
+ */
+export interface ReviewProsConsBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  prosTitle?: string | null;
+  pros?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  consTitle?: string | null;
+  cons?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewProsCons';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewSplitBlock".
+ */
+export interface ReviewSplitBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  /**
+   * Bold opening word(s), e.g. "Yes."
+   */
+  lead?: string | null;
+  body?: string | null;
+  /**
+   * Red highlight card under the text (e.g. licence reference).
+   */
+  highlight?: {
+    icon?:
+      | (
+          | 'shield'
+          | 'trophy'
+          | 'wallet'
+          | 'gift'
+          | 'gamepad'
+          | 'smartphone'
+          | 'headphones'
+          | 'star'
+          | 'lock'
+          | 'timer'
+          | 'ban'
+          | 'idCard'
+          | 'zap'
+          | 'info'
+          | 'lifebuoy'
+          | 'mail'
+          | 'phone'
+          | 'languages'
+          | 'message'
+          | 'monitor'
+          | 'sparkles'
+          | 'scale'
+          | 'userPlus'
+          | 'listChecks'
+          | 'users'
+          | 'trendingUp'
+          | 'clock'
+          | 'calculator'
+          | 'globe'
+          | 'percent'
+          | 'banknote'
+          | 'creditCard'
+          | 'tv'
+          | 'check'
+          | 'megaphone'
+          | 'pencil'
+          | 'mapPin'
+          | 'fileText'
+          | 'externalLink'
+          | 'triangleAlert'
+          | 'piggyBank'
+          | 'search'
+        )
+      | null;
+    label?: string | null;
+    value?: string | null;
+    caption?: string | null;
+  };
+  /**
+   * Small cards shown on the right (2 per row).
+   */
+  cards?:
+    | {
+        icon?:
+          | (
+              | 'shield'
+              | 'trophy'
+              | 'wallet'
+              | 'gift'
+              | 'gamepad'
+              | 'smartphone'
+              | 'headphones'
+              | 'star'
+              | 'lock'
+              | 'timer'
+              | 'ban'
+              | 'idCard'
+              | 'zap'
+              | 'info'
+              | 'lifebuoy'
+              | 'mail'
+              | 'phone'
+              | 'languages'
+              | 'message'
+              | 'monitor'
+              | 'sparkles'
+              | 'scale'
+              | 'userPlus'
+              | 'listChecks'
+              | 'users'
+              | 'trendingUp'
+              | 'clock'
+              | 'calculator'
+              | 'globe'
+              | 'percent'
+              | 'banknote'
+              | 'creditCard'
+              | 'tv'
+              | 'check'
+              | 'megaphone'
+              | 'pencil'
+              | 'mapPin'
+              | 'fileText'
+              | 'externalLink'
+              | 'triangleAlert'
+              | 'piggyBank'
+              | 'search'
+            )
+          | null;
+        title: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Width split between the text column and the cards column.
+   */
+  columnRatio?: ('50-50' | '60-40' | '40-60' | '70-30' | '30-70') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewSplit';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewBonusBlock".
+ */
+export interface ReviewBonusBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  tag?: string | null;
+  /**
+   * Leave empty to use the review's Bonus Headline.
+   */
+  title?: string | null;
+  description?: string | null;
+  rows?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional "Bonus calculator" shown beside the bonus card.
+   */
+  calculator?: {
+    enabled?: boolean | null;
+    currency?: string | null;
+    /**
+     * e.g. 100
+     */
+    matchPercent?: number | null;
+    maxBonus?: number | null;
+    minDeposit?: number | null;
+    maxDeposit?: number | null;
+    step?: number | null;
+    defaultDeposit?: number | null;
+    /**
+     * Times (e.g. 8)
+     */
+    sportsRollover?: number | null;
+    /**
+     * Times (e.g. 40)
+     */
+    casinoRollover?: number | null;
+    tip?: string | null;
+  };
+  /**
+   * Leave empty for "Claim <bonus headline>". The link is the review's Play Now link.
+   */
+  ctaLabel?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewBonus';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewBoostBlock".
+ */
+export interface ReviewBoostBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  tag?: string | null;
+  title: string;
+  description?: string | null;
+  unitLabel?: string | null;
+  min?: number | null;
+  max?: number | null;
+  defaultValue?: number | null;
+  /**
+   * Each tier applies from its "From" value up to the next tier. Bars are drawn from these.
+   */
+  tiers?:
+    | {
+        from: number;
+        boost: number;
+        id?: string | null;
+      }[]
+    | null;
+  footnote?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewBoost';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewCardsBlock".
+ */
+export interface ReviewCardsBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  /**
+   * Columns on desktop. Phones always show one column.
+   */
+  columns?: ('1' | '2' | '3' | '4') | null;
+  /**
+   * Card = stacked card. Row = icon beside the text. Contact = icon, small label, bold value and note (support channels, key facts).
+   */
+  variant?: ('card' | 'row' | 'contact' | 'plain') | null;
+  items?:
+    | {
+        /**
+         * Optional
+         */
+        icon?:
+          | (
+              | 'shield'
+              | 'trophy'
+              | 'wallet'
+              | 'gift'
+              | 'gamepad'
+              | 'smartphone'
+              | 'headphones'
+              | 'star'
+              | 'lock'
+              | 'timer'
+              | 'ban'
+              | 'idCard'
+              | 'zap'
+              | 'info'
+              | 'lifebuoy'
+              | 'mail'
+              | 'phone'
+              | 'languages'
+              | 'message'
+              | 'monitor'
+              | 'sparkles'
+              | 'scale'
+              | 'userPlus'
+              | 'listChecks'
+              | 'users'
+              | 'trendingUp'
+              | 'clock'
+              | 'calculator'
+              | 'globe'
+              | 'percent'
+              | 'banknote'
+              | 'creditCard'
+              | 'tv'
+              | 'check'
+              | 'megaphone'
+              | 'pencil'
+              | 'mapPin'
+              | 'fileText'
+              | 'externalLink'
+              | 'triangleAlert'
+              | 'piggyBank'
+              | 'search'
+            )
+          | null;
+        /**
+         * Optional small label above the title (a pill, or plain text in the Contact style).
+         */
+        tag?: string | null;
+        title: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional screenshot shown beside the cards (cards stack in one column).
+   */
+  sideImage?: (number | null) | Media;
+  sideCaption?: string | null;
+  /**
+   * Width split between the cards column and the image column.
+   */
+  columnRatio?: ('50-50' | '60-40' | '40-60' | '70-30' | '30-70') | null;
+  /**
+   * Optional highlighted note shown under the cards.
+   */
+  callout?: {
+    tone?: ('warning' | 'success' | 'info') | null;
+    icon?:
+      | (
+          | 'shield'
+          | 'trophy'
+          | 'wallet'
+          | 'gift'
+          | 'gamepad'
+          | 'smartphone'
+          | 'headphones'
+          | 'star'
+          | 'lock'
+          | 'timer'
+          | 'ban'
+          | 'idCard'
+          | 'zap'
+          | 'info'
+          | 'lifebuoy'
+          | 'mail'
+          | 'phone'
+          | 'languages'
+          | 'message'
+          | 'monitor'
+          | 'sparkles'
+          | 'scale'
+          | 'userPlus'
+          | 'listChecks'
+          | 'users'
+          | 'trendingUp'
+          | 'clock'
+          | 'calculator'
+          | 'globe'
+          | 'percent'
+          | 'banknote'
+          | 'creditCard'
+          | 'tv'
+          | 'check'
+          | 'megaphone'
+          | 'pencil'
+          | 'mapPin'
+          | 'fileText'
+          | 'externalLink'
+          | 'triangleAlert'
+          | 'piggyBank'
+          | 'search'
+        )
+      | null;
+    title?: string | null;
+    text?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewCards';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewSpotlightBlock".
+ */
+export interface ReviewSpotlightBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  /**
+   * Small label above the title (e.g. VIP & loyalty).
+   */
+  tag?: string | null;
+  title: string;
+  text?: string | null;
+  stats?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  note?: string | null;
+  image?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewSpotlight';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewStepsBlock".
+ */
+export interface ReviewStepsBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  steps?:
+    | {
+        title: string;
+        text?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional screenshot beside the steps.
+   */
+  image?: (number | null) | Media;
+  /**
+   * Small note under the screenshot.
+   */
+  caption?: string | null;
+  /**
+   * Width split between the steps list and the screenshot.
+   */
+  columnRatio?: ('50-50' | '60-40' | '40-60' | '70-30' | '30-70') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewSteps';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewTabsGalleryBlock".
+ */
+export interface ReviewTabsGalleryBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  /**
+   * e.g. Desktop and Mobile, each with its own screenshot.
+   */
+  tabs?:
+    | {
+        label: string;
+        icon?:
+          | (
+              | 'shield'
+              | 'trophy'
+              | 'wallet'
+              | 'gift'
+              | 'gamepad'
+              | 'smartphone'
+              | 'headphones'
+              | 'star'
+              | 'lock'
+              | 'timer'
+              | 'ban'
+              | 'idCard'
+              | 'zap'
+              | 'info'
+              | 'lifebuoy'
+              | 'mail'
+              | 'phone'
+              | 'languages'
+              | 'message'
+              | 'monitor'
+              | 'sparkles'
+              | 'scale'
+              | 'userPlus'
+              | 'listChecks'
+              | 'users'
+              | 'trendingUp'
+              | 'clock'
+              | 'calculator'
+              | 'globe'
+              | 'percent'
+              | 'banknote'
+              | 'creditCard'
+              | 'tv'
+              | 'check'
+              | 'megaphone'
+              | 'pencil'
+              | 'mapPin'
+              | 'fileText'
+              | 'externalLink'
+              | 'triangleAlert'
+              | 'piggyBank'
+              | 'search'
+            )
+          | null;
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewTabsGallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewShowcaseBlock".
+ */
+export interface ReviewShowcaseBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  /**
+   * Pill tags (sports list, casino categories...).
+   */
+  chips?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional screenshot under the tags.
+   */
+  image?: (number | null) | Media;
+  caption?: string | null;
+  /**
+   * Columns on desktop. Phones always show one column.
+   */
+  columns?: ('1' | '2' | '3' | '4') | null;
+  /**
+   * Bulleted lists shown as cards under the screenshot.
+   */
+  lists?:
+    | {
+        title: string;
+        items?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewShowcase';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewOddsTableBlock".
+ */
+export interface ReviewOddsTableBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  /**
+   * The bookmaker you compare against. Its name labels the second row.
+   */
+  opponent?: (number | null) | Review;
+  /**
+   * e.g. "Odds check: 10bet vs Hollywoodbets"
+   */
+  tableTitle?: string | null;
+  tableNote?: string | null;
+  homeLabel?: string | null;
+  drawLabel?: string | null;
+  awayLabel?: string | null;
+  fixtures?:
+    | {
+        name: string;
+        /**
+         * e.g. +440 markets at 10bet
+         */
+        note?: string | null;
+        /**
+         * This bookmaker (highlighted green)
+         */
+        ours?: {
+          home?: string | null;
+          draw?: string | null;
+          away?: string | null;
+        };
+        /**
+         * The opponent
+         */
+        theirs?: {
+          home?: string | null;
+          draw?: string | null;
+          away?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewOddsTable';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewPaymentsBlock".
+ */
+export interface ReviewPaymentsBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  /**
+   * Right-aligned note, e.g. "Min deposit from R5".
+   */
+  note?: string | null;
+  /**
+   * Rows shown before the "Show all" button.
+   */
+  initialVisible?: number | null;
+  tabs?:
+    | {
+        /**
+         * e.g. Deposits
+         */
+        label: string;
+        timeHeading?: string | null;
+        rows?:
+          | {
+              name: string;
+              icon?: (number | null) | Media;
+              type?: string | null;
+              minimum?: string | null;
+              time?: string | null;
+              fee?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewPayments';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewCompareBlock".
+ */
+export interface ReviewCompareBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  /**
+   * Logo, rating, bonus and review link come from this bookmaker.
+   */
+  opponent: number | Review;
+  /**
+   * Short tag in the score chips (e.g. HWB).
+   */
+  opponentShortName?: string | null;
+  badge?: string | null;
+  /**
+   * Bonus rows use each review's Bonus Headline, Rating rows use each review's rating. Custom rows use your own text.
+   */
+  rows?:
+    | {
+        kind?: ('custom' | 'bonus' | 'rating') | null;
+        label: string;
+        ourValue?: string | null;
+        theirValue?: string | null;
+        /**
+         * Rating rows pick the winner automatically.
+         */
+        winner?: ('ours' | 'theirs' | 'tie') | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Sentence under the score (e.g. who edges what).
+   */
+  summary?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewCompare';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewVerdictBlock".
+ */
+export interface ReviewVerdictBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  body?: string | null;
+  /**
+   * Leave empty for "Claim <bonus headline>". The link is the review's Play Now link.
+   */
+  ctaLabel?: string | null;
+  /**
+   * e.g. See payment methods
+   */
+  secondaryLabel?: string | null;
+  /**
+   * e.g. #payments
+   */
+  secondaryHref?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewVerdict';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewFaqBlock".
+ */
+export interface ReviewFaqBlock {
+  /**
+   * Icon shown beside the small label above the heading.
+   */
+  eyebrowIcon?:
+    | (
+        | 'shield'
+        | 'trophy'
+        | 'wallet'
+        | 'gift'
+        | 'gamepad'
+        | 'smartphone'
+        | 'headphones'
+        | 'star'
+        | 'lock'
+        | 'timer'
+        | 'ban'
+        | 'idCard'
+        | 'zap'
+        | 'info'
+        | 'lifebuoy'
+        | 'mail'
+        | 'phone'
+        | 'languages'
+        | 'message'
+        | 'monitor'
+        | 'sparkles'
+        | 'scale'
+        | 'userPlus'
+        | 'listChecks'
+        | 'users'
+        | 'trendingUp'
+        | 'clock'
+        | 'calculator'
+        | 'globe'
+        | 'percent'
+        | 'banknote'
+        | 'creditCard'
+        | 'tv'
+        | 'check'
+        | 'megaphone'
+        | 'pencil'
+        | 'mapPin'
+        | 'fileText'
+        | 'externalLink'
+        | 'triangleAlert'
+        | 'piggyBank'
+        | 'search'
+      )
+    | null;
+  /**
+   * Shows this block right under the one above it with a small gap (use it to continue a section).
+   */
+  attachToPrevious?: boolean | null;
+  /**
+   * Short name in the sticky "On this page" bar. Leave empty to hide this section from it.
+   */
+  tocLabel?: string | null;
+  /**
+   * In-page anchor used by menu links, e.g. "top" for /#top.
+   */
+  anchorId?: string | null;
+  /**
+   * Warm gradient background with top/bottom borders (the "How to bet" look).
+   */
+  tinted?: boolean | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  /**
+   * Optional: the end of the heading shown in the red gradient.
+   */
+  headingHighlight?: string | null;
+  intro?: string | null;
+  items?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviewFaq';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1575,6 +4166,31 @@ export interface PagesSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+        responseStatus?: T;
+        responseTime?: T;
+        responseNote?: T;
+        stats?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              id?: T;
+            };
+        helpNote?: T;
+        missionIcon?: T;
+        missionEyebrow?: T;
+        missionQuote?: T;
+        missionCaption?: T;
+        miniStats?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              subtitle?: T;
+              id?: T;
+            };
+        updatedLabel?: T;
+        readInfo?: T;
         media?: T;
       };
   layout?:
@@ -1585,11 +4201,30 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        flexCols?: T | FlexibleColumnsBlockSelect<T>;
         reviewsBlock?: T | ReviewsBlockSelect<T>;
         postsBlock?: T | PostsBlockSelect<T>;
         featureGrid?: T | FeatureGridBlockSelect<T>;
         licensingBlock?: T | LicensingBlockSelect<T>;
         faqBlock?: T | FaqBlockSelect<T>;
+        teamSpotlight?: T | TeamSpotlightBlockSelect<T>;
+        legalSections?: T | LegalSectionsBlockSelect<T>;
+        reviewScoreboard?: T | ReviewScoreboardBlockSelect<T>;
+        reviewFactGrid?: T | ReviewFactGridBlockSelect<T>;
+        reviewProsCons?: T | ReviewProsConsBlockSelect<T>;
+        reviewSplit?: T | ReviewSplitBlockSelect<T>;
+        reviewBonus?: T | ReviewBonusBlockSelect<T>;
+        reviewBoost?: T | ReviewBoostBlockSelect<T>;
+        reviewCards?: T | ReviewCardsBlockSelect<T>;
+        reviewSpotlight?: T | ReviewSpotlightBlockSelect<T>;
+        reviewSteps?: T | ReviewStepsBlockSelect<T>;
+        reviewTabsGallery?: T | ReviewTabsGalleryBlockSelect<T>;
+        reviewShowcase?: T | ReviewShowcaseBlockSelect<T>;
+        reviewOddsTable?: T | ReviewOddsTableBlockSelect<T>;
+        reviewPayments?: T | ReviewPaymentsBlockSelect<T>;
+        reviewCompare?: T | ReviewCompareBlockSelect<T>;
+        reviewVerdict?: T | ReviewVerdictBlockSelect<T>;
+        reviewFaq?: T | ReviewFaqBlockSelect<T>;
       };
   meta?:
     | T
@@ -1685,9 +4320,79 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
  * via the `definition` "FormBlock_select".
  */
 export interface FormBlockSelect<T extends boolean = true> {
+  anchorId?: T;
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  sidebar?:
+    | T
+    | {
+        noteTitle?: T;
+        noteText?: T;
+        noteLinkLabel?: T;
+        noteLinkUrl?: T;
+        supportTitle?: T;
+        supportEmail?: T;
+        supportNote?: T;
+        showSocial?: T;
+        showGamblingHelp?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FlexibleColumnsBlock_select".
+ */
+export interface FlexibleColumnsBlockSelect<T extends boolean = true> {
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  cols?:
+    | T
+    | {
+        width?: T;
+        noCard?: T;
+        tintCard?: T;
+        gradientCard?: T;
+        items?:
+          | T
+          | {
+              type?: T;
+              eyebrowText?: T;
+              title?: T;
+              icon?: T;
+              inlineIcon?: T;
+              text?: T;
+              image?: T;
+              btn?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    icon?: T;
+                  };
+              statValue?: T;
+              statLabel?: T;
+              email?: T;
+              formAnchor?: T;
+              accordionItems?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1768,9 +4473,11 @@ export interface FeatureGridBlockSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         icon?: T;
+        trustIcon?: T;
         tip?: T;
         id?: T;
       };
+  calloutLead?: T;
   callout?: T;
   quote?: T;
   ctaHeading?: T;
@@ -1870,6 +4577,607 @@ export interface FaqBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamSpotlightBlock_select".
+ */
+export interface TeamSpotlightBlockSelect<T extends boolean = true> {
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  initials?: T;
+  name?: T;
+  role?: T;
+  verifiedLabel?: T;
+  bioLead?: T;
+  bioBold?: T;
+  bioRest?: T;
+  tags?:
+    | T
+    | {
+        label?: T;
+        id?: T;
+      };
+  authorLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        icon?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LegalSectionsBlock_select".
+ */
+export interface LegalSectionsBlockSelect<T extends boolean = true> {
+  sections?:
+    | T
+    | {
+        icon?: T;
+        heading?: T;
+        points?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        text?: T;
+        helpline?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              value?: T;
+              linkLabel?: T;
+              linkUrl?: T;
+            };
+        contact?:
+          | T
+          | {
+              email?: T;
+              website?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewScoreboardBlock_select".
+ */
+export interface ReviewScoreboardBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  summary?: T;
+  stats?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  testedLabel?: T;
+  categories?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        score?: T;
+        id?: T;
+      };
+  highlightsHeading?: T;
+  highlights?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewFactGridBlock_select".
+ */
+export interface ReviewFactGridBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  columns?: T;
+  facts?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  showPaymentMethods?: T;
+  paymentsLabel?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewProsConsBlock_select".
+ */
+export interface ReviewProsConsBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  prosTitle?: T;
+  pros?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  consTitle?: T;
+  cons?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewSplitBlock_select".
+ */
+export interface ReviewSplitBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  lead?: T;
+  body?: T;
+  highlight?:
+    | T
+    | {
+        icon?: T;
+        label?: T;
+        value?: T;
+        caption?: T;
+      };
+  cards?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  columnRatio?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewBonusBlock_select".
+ */
+export interface ReviewBonusBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  tag?: T;
+  title?: T;
+  description?: T;
+  rows?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  calculator?:
+    | T
+    | {
+        enabled?: T;
+        currency?: T;
+        matchPercent?: T;
+        maxBonus?: T;
+        minDeposit?: T;
+        maxDeposit?: T;
+        step?: T;
+        defaultDeposit?: T;
+        sportsRollover?: T;
+        casinoRollover?: T;
+        tip?: T;
+      };
+  ctaLabel?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewBoostBlock_select".
+ */
+export interface ReviewBoostBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  tag?: T;
+  title?: T;
+  description?: T;
+  unitLabel?: T;
+  min?: T;
+  max?: T;
+  defaultValue?: T;
+  tiers?:
+    | T
+    | {
+        from?: T;
+        boost?: T;
+        id?: T;
+      };
+  footnote?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewCardsBlock_select".
+ */
+export interface ReviewCardsBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  columns?: T;
+  variant?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        tag?: T;
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  sideImage?: T;
+  sideCaption?: T;
+  columnRatio?: T;
+  callout?:
+    | T
+    | {
+        tone?: T;
+        icon?: T;
+        title?: T;
+        text?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewSpotlightBlock_select".
+ */
+export interface ReviewSpotlightBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  tag?: T;
+  title?: T;
+  text?: T;
+  stats?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  note?: T;
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewStepsBlock_select".
+ */
+export interface ReviewStepsBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  steps?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  image?: T;
+  caption?: T;
+  columnRatio?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewTabsGalleryBlock_select".
+ */
+export interface ReviewTabsGalleryBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  tabs?:
+    | T
+    | {
+        label?: T;
+        icon?: T;
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewShowcaseBlock_select".
+ */
+export interface ReviewShowcaseBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  chips?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  image?: T;
+  caption?: T;
+  columns?: T;
+  lists?:
+    | T
+    | {
+        title?: T;
+        items?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewOddsTableBlock_select".
+ */
+export interface ReviewOddsTableBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  opponent?: T;
+  tableTitle?: T;
+  tableNote?: T;
+  homeLabel?: T;
+  drawLabel?: T;
+  awayLabel?: T;
+  fixtures?:
+    | T
+    | {
+        name?: T;
+        note?: T;
+        ours?:
+          | T
+          | {
+              home?: T;
+              draw?: T;
+              away?: T;
+            };
+        theirs?:
+          | T
+          | {
+              home?: T;
+              draw?: T;
+              away?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewPaymentsBlock_select".
+ */
+export interface ReviewPaymentsBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  note?: T;
+  initialVisible?: T;
+  tabs?:
+    | T
+    | {
+        label?: T;
+        timeHeading?: T;
+        rows?:
+          | T
+          | {
+              name?: T;
+              icon?: T;
+              type?: T;
+              minimum?: T;
+              time?: T;
+              fee?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewCompareBlock_select".
+ */
+export interface ReviewCompareBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  opponent?: T;
+  opponentShortName?: T;
+  badge?: T;
+  rows?:
+    | T
+    | {
+        kind?: T;
+        label?: T;
+        ourValue?: T;
+        theirValue?: T;
+        winner?: T;
+        id?: T;
+      };
+  summary?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewVerdictBlock_select".
+ */
+export interface ReviewVerdictBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  body?: T;
+  ctaLabel?: T;
+  secondaryLabel?: T;
+  secondaryHref?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewFaqBlock_select".
+ */
+export interface ReviewFaqBlockSelect<T extends boolean = true> {
+  eyebrowIcon?: T;
+  attachToPrevious?: T;
+  tocLabel?: T;
+  anchorId?: T;
+  tinted?: T;
+  eyebrow?: T;
+  heading?: T;
+  headingHighlight?: T;
+  intro?: T;
+  items?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -1914,6 +5222,7 @@ export interface ReviewsSelect<T extends boolean = true> {
   whyWeLoveIt?: T;
   bonusText?: T;
   promotionalCode?: T;
+  playNowUrl?: T;
   features?:
     | T
     | {
@@ -1936,6 +5245,60 @@ export interface ReviewsSelect<T extends boolean = true> {
       };
   content?: T;
   termsConditions?: T;
+  pageHero?:
+    | T
+    | {
+        licenceBadge?: T;
+        titleSuffix?: T;
+        summary?: T;
+        author?: T;
+        scoreLabel?: T;
+        rankText?: T;
+        offerLabel?: T;
+        bonusSubtext?: T;
+        bonusFinePrint?: T;
+        ctaLabel?: T;
+        stats?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              id?: T;
+            };
+      };
+  layout?:
+    | T
+    | {
+        cta?: T | CallToActionBlockSelect<T>;
+        content?: T | ContentBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        archive?: T | ArchiveBlockSelect<T>;
+        formBlock?: T | FormBlockSelect<T>;
+        flexCols?: T | FlexibleColumnsBlockSelect<T>;
+        reviewsBlock?: T | ReviewsBlockSelect<T>;
+        postsBlock?: T | PostsBlockSelect<T>;
+        featureGrid?: T | FeatureGridBlockSelect<T>;
+        licensingBlock?: T | LicensingBlockSelect<T>;
+        faqBlock?: T | FaqBlockSelect<T>;
+        teamSpotlight?: T | TeamSpotlightBlockSelect<T>;
+        legalSections?: T | LegalSectionsBlockSelect<T>;
+        reviewScoreboard?: T | ReviewScoreboardBlockSelect<T>;
+        reviewFactGrid?: T | ReviewFactGridBlockSelect<T>;
+        reviewProsCons?: T | ReviewProsConsBlockSelect<T>;
+        reviewSplit?: T | ReviewSplitBlockSelect<T>;
+        reviewBonus?: T | ReviewBonusBlockSelect<T>;
+        reviewBoost?: T | ReviewBoostBlockSelect<T>;
+        reviewCards?: T | ReviewCardsBlockSelect<T>;
+        reviewSpotlight?: T | ReviewSpotlightBlockSelect<T>;
+        reviewSteps?: T | ReviewStepsBlockSelect<T>;
+        reviewTabsGallery?: T | ReviewTabsGalleryBlockSelect<T>;
+        reviewShowcase?: T | ReviewShowcaseBlockSelect<T>;
+        reviewOddsTable?: T | ReviewOddsTableBlockSelect<T>;
+        reviewPayments?: T | ReviewPaymentsBlockSelect<T>;
+        reviewCompare?: T | ReviewCompareBlockSelect<T>;
+        reviewVerdict?: T | ReviewVerdictBlockSelect<T>;
+        reviewFaq?: T | ReviewFaqBlockSelect<T>;
+      };
   relatedReviews?: T;
   categories?: T;
   meta?:

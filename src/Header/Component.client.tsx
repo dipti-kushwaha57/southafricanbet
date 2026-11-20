@@ -59,6 +59,20 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     return () => window.removeEventListener('resize', updateNavTop)
   }, [menuOpen])
 
+  /** Exposes the sticky header's real rendered height so other sticky bars (e.g. the review
+   *  page's "On this page" TOC) can stick directly below it instead of guessing a fixed offset. */
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (headerRef.current) {
+        document.documentElement.style.setProperty('--site-header-h', `${headerRef.current.offsetHeight}px`)
+      }
+    }
+
+    updateHeaderHeight()
+    window.addEventListener('resize', updateHeaderHeight)
+    return () => window.removeEventListener('resize', updateHeaderHeight)
+  }, [])
+
   const toggleMobileItem = (index: number) =>
     setOpenMobileIndex((current) => (current === index ? null : index))
 
